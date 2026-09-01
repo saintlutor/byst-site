@@ -22,14 +22,14 @@ const translations = {
     'search.point3': '✓ Book before cut-off, instantly',
     'search.dealsTitle': 'Departing soon from China',
 
-    'city.shenzhen': 'Shenzhen',
-    'city.guangzhou': 'Guangzhou',
-    'city.ningbo': 'Ningbo',
-    'city.felixstowe': 'Felixstowe (Sea)',
-    'city.heathrow': 'Heathrow (Air)',
-    'city.sydney': 'Sydney (Sea)',
-    'city.melbourne': 'Melbourne (Sea)',
-    'city.sydneyair': 'Sydney (Air)',
+    'city.shenzhen': '🇨🇳 Shenzhen',
+    'city.guangzhou': '🇨🇳 Guangzhou',
+    'city.ningbo': '🇨🇳 Ningbo',
+    'city.felixstowe': '🇬🇧 Felixstowe (Sea)',
+    'city.heathrow': '🇬🇧 Heathrow (Air)',
+    'city.sydney': '🇦🇺 Sydney (Sea)',
+    'city.melbourne': '🇦🇺 Melbourne (Sea)',
+    'city.sydneyair': '🇦🇺 Sydney (Air)',
     'mode.sea': 'Sea LCL',
     'mode.air': 'Air freight',
 
@@ -128,6 +128,16 @@ const translations = {
     'footer.tagline': 'The freight capacity marketplace — China → UK & Australia.',
     'footer.contact': 'Contact',
 
+    'net.au.title': 'Australia network',
+    'net.au.body': 'Destination handling and door delivery run through our established Australian partner network.',
+    'net.cn.title': 'China network',
+    'net.cn.body': 'Origin coverage across Shenzhen, Guangzhou and Ningbo is being built right now. All rates shown are forwarder estimates until launch.',
+    'net.live': 'Live',
+    'soon.badge': 'Coming soon',
+    'soon.notice': 'China lanes launch soon — all rates shown are estimates from partner forwarders.',
+    'soon.est': 'est. rate',
+    'soon.detailNote': 'Estimated rate — the China network is launching soon. Reserve now to hold your place in the queue for this departure.',
+
     'auth.signIn': 'Sign in',
     'auth.register': 'Register',
     'auth.signOut': 'Sign out',
@@ -170,14 +180,14 @@ const translations = {
     'search.point3': '✓ 截关前即时预订',
     'search.dealsTitle': '即将从中国出发',
 
-    'city.shenzhen': '深圳',
-    'city.guangzhou': '广州',
-    'city.ningbo': '宁波',
-    'city.felixstowe': '费利克斯托（海运）',
-    'city.heathrow': '希思罗（空运）',
-    'city.sydney': '悉尼（海运）',
-    'city.melbourne': '墨尔本（海运）',
-    'city.sydneyair': '悉尼（空运）',
+    'city.shenzhen': '🇨🇳 深圳',
+    'city.guangzhou': '🇨🇳 广州',
+    'city.ningbo': '🇨🇳 宁波',
+    'city.felixstowe': '🇬🇧 费利克斯托（海运）',
+    'city.heathrow': '🇬🇧 希思罗（空运）',
+    'city.sydney': '🇦🇺 悉尼（海运）',
+    'city.melbourne': '🇦🇺 墨尔本（海运）',
+    'city.sydneyair': '🇦🇺 悉尼（空运）',
     'mode.sea': '海运拼箱',
     'mode.air': '空运',
 
@@ -275,6 +285,16 @@ const translations = {
 
     'footer.tagline': '货运舱位交易平台——中国 → 英国和澳大利亚。',
     'footer.contact': '联系我们',
+
+    'net.au.title': '澳大利亚网络',
+    'net.au.body': '目的地操作与送货上门服务由我们成熟的澳大利亚合作伙伴网络提供。',
+    'net.cn.title': '中国网络',
+    'net.cn.body': '深圳、广州和宁波的起运地网络正在搭建中。正式上线前，所示价格均为货代预估报价。',
+    'net.live': '已运营',
+    'soon.badge': '即将上线',
+    'soon.notice': '中国航线即将开通——所示价格均为合作货代的预估报价。',
+    'soon.est': '预估价',
+    'soon.detailNote': '预估价格——中国网络即将上线。现在预订可提前锁定该班期的排位。',
 
     'auth.signIn': '登录',
     'auth.register': '注册',
@@ -377,6 +397,17 @@ let selectedListingId = null;
 
 function city(key) { return cityShort[key][lang]; }
 function fwd(f) { return f[lang]; }
+
+const cityCountry = {
+  shenzhen: 'cn', guangzhou: 'cn', ningbo: 'cn',
+  felixstowe: 'gb', heathrow: 'gb',
+  sydney: 'au', melbourne: 'au', sydneyair: 'au',
+};
+function flagImg(key, cls) {
+  const c = cityCountry[key];
+  if (!c) return '';
+  return `<img class="flag${cls ? ' ' + cls : ''}" src="https://flagcdn.com/w20/${c}.png" srcset="https://flagcdn.com/w40/${c}.png 2x" alt="${c.toUpperCase()}">`;
+}
 function u(key) { return t('unit_' + key); }
 
 function addDays(dateStr, days) {
@@ -470,11 +501,12 @@ function renderResultRow(l) {
         <span class="carrier-name">${fwd(l.forwarder)}</span>
         ${l.service !== 'p2p' ? `<span class="svc-pill">🚚 ${t('service.' + l.service)}</span>` : ''}
         ${l.standby ? `<span class="standby-badge">★ ${t('standby')}</span>` : ''}
+        <span class="soon-badge">${t('soon.badge')}</span>
       </div>
       <div class="journey">
         <div class="j-end">
           <div class="j-date">${shortDate(l.date)}</div>
-          <div class="j-city">${city(l.origin)}</div>
+          <div class="j-city">${flagImg(l.origin)} ${city(l.origin)}</div>
         </div>
         <div class="j-line">
           <span class="j-duration">${durLabel(l.transitDays)}</span>
@@ -482,7 +514,7 @@ function renderResultRow(l) {
         </div>
         <div class="j-end">
           <div class="j-date">${shortDate(arrive)}</div>
-          <div class="j-city">${city(l.dest)}</div>
+          <div class="j-city">${flagImg(l.dest)} ${city(l.dest)}</div>
         </div>
       </div>
       <div class="leg-meta">
@@ -493,6 +525,7 @@ function renderResultRow(l) {
     <div class="price-col">
       ${l.wasPrice ? `<span class="pc-was">${wasLabel(l)}${u(l.priceUnit)}</span>` : ''}
       <span class="pc-price">${priceLabel(l)}<small>${u(l.priceUnit)}</small></span>
+      <span class="est-tag">${t('soon.est')}</span>
       <button class="pc-btn">${t('results.select')}</button>
     </div>
   </div>`;
@@ -538,11 +571,19 @@ function renderDeals() {
   const deals = listings.slice(0, 8).filter(l => l.standby).concat(listings.filter(l => !l.standby)).slice(0, 4);
   el.innerHTML = deals.map(l => `
     <div class="deal-card" data-id="${l.id}">
-      <div class="deal-route">${city(l.origin)} → ${city(l.dest)}</div>
-      <div class="deal-mode">${t('mode.' + l.type)}${l.standby ? ` · ★ ${t('standby')}` : ''}</div>
-      <div class="deal-bottom">
-        <span class="deal-price">${priceLabel(l)}<small>${u(l.priceUnit)}</small></span>
-        <span class="deal-date">${shortDate(l.date)}</span>
+      <div class="deal-band deal-band-${cityCountry[l.dest]}">
+        ${flagImg(l.origin, 'flag-lg')}
+        <span class="deal-band-arrow">→</span>
+        ${flagImg(l.dest, 'flag-lg')}
+        <span class="deal-band-icon">${l.type === 'sea' ? '🚢' : '✈️'}</span>
+      </div>
+      <div class="deal-body">
+        <div class="deal-route">${city(l.origin)} → ${city(l.dest)}</div>
+        <div class="deal-mode">${t('mode.' + l.type)}${l.standby ? ` · ★ ${t('standby')}` : ''}</div>
+        <div class="deal-bottom">
+          <span class="deal-price">${priceLabel(l)}<small>${u(l.priceUnit)}</small></span>
+          <span class="deal-date">${shortDate(l.date)}</span>
+        </div>
       </div>
     </div>`).join('');
   el.querySelectorAll('.deal-card').forEach(card => {
@@ -563,7 +604,7 @@ function renderDetail() {
   <div class="detail-card">
     <span class="mode-pill ${l.type}">${icon} ${t('mode.' + l.type)}</span>
     ${l.standby ? ` <span class="standby-badge">★ ${t('standby')}</span>` : ''}
-    <div class="detail-route">${city(l.origin)} → ${city(l.dest)}</div>
+    <div class="detail-route">${flagImg(l.origin, 'flag-md')} ${city(l.origin)} → ${flagImg(l.dest, 'flag-md')} ${city(l.dest)}</div>
     <div class="detail-forwarder">${fwd(l.forwarder)}</div>
     <div class="countdown-row">
       <div class="cd-chip">
@@ -584,10 +625,12 @@ function renderDetail() {
       <div class="meta-item"><span class="meta-label">${t('service.label')}</span><span class="meta-value">${t('service.' + l.service)}${l.doorFee ? ` (+${money(l.doorFee)} ${t('service.doorFee')})` : ''}</span></div>
     </div>
     ${l.standby ? `<div class="standby-note">⚠ ${t('detail.standbyNote')}</div>` : ''}
+    <div class="soon-note"><span class="soon-badge">${t('soon.badge')}</span> ${t('soon.detailNote')}</div>
     <div class="detail-footer">
       <div>
         ${l.wasPrice ? `<div class="pc-was">${wasLabel(l)}${u(l.priceUnit)}</div>` : ''}
         <span class="pc-price">${priceLabel(l)}<small>${u(l.priceUnit)}</small></span>
+        <span class="est-tag">${t('soon.est')}</span>
       </div>
       <button class="btn btn-primary" id="reserveBtn">${t('detail.reserve')}</button>
     </div>

@@ -47,6 +47,13 @@ button, input, select { font-family: inherit; font-size: inherit; }
 .brand { display: flex; align-items: baseline; gap: 6px; background: none; border: none; cursor: pointer; padding: 0; }
 .brand-name { color: #fff; font-weight: 800; font-size: 19px; letter-spacing: -0.02em; }
 .brand-sub { color: rgba(255,255,255,.55); font-weight: 600; font-size: 12px; letter-spacing: 0.02em; }
+.brand-plane { color: var(--blue); transform: rotate(45deg); align-self: center; flex-shrink: 0; }
+
+/* ---------- Flags ---------- */
+.flag { height: 12px; width: auto; border-radius: 2px; vertical-align: -1px; box-shadow: 0 0 0 1px rgba(17,24,39,.08); }
+.flag-md { height: 16px; vertical-align: -2px; }
+.flag-lg { height: 15px; box-shadow: 0 0 0 1px rgba(255,255,255,.35); }
+.flag-net { height: 26px; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
 .nav { display: flex; gap: 2px; flex: 1; overflow-x: auto; }
 .nav-link {
   background: transparent; border: none; color: rgba(255,255,255,.7);
@@ -116,11 +123,25 @@ main#app { min-height: 72vh; }
 .hidden { display: none !important; }
 
 /* ---------- Hero / search band ---------- */
-.hero-band { background: var(--navy); padding: 52px 24px 58px; }
-.hero-band-inner { max-width: 1140px; margin: 0 auto; }
+.hero-band {
+  background:
+    radial-gradient(ellipse 60% 90% at 82% 10%, rgba(7,112,227,.28), transparent 60%),
+    radial-gradient(ellipse 40% 60% at 10% 100%, rgba(7,112,227,.14), transparent 60%),
+    var(--navy);
+  padding: 52px 24px 58px; overflow: hidden;
+}
+.hero-band-inner { max-width: 1140px; margin: 0 auto; position: relative; }
+.hero-art { position: absolute; right: -30px; top: -18px; width: 430px; pointer-events: none; opacity: .95; }
+.hero-art .arc { stroke-dasharray: 3 9; stroke-linecap: round; animation: arcFlow 14s linear infinite; }
+.hero-art .arc-delay { animation-delay: -7s; }
+.hero-art .float-a { animation: floatY 5s ease-in-out infinite; }
+.hero-art .float-b { animation: floatY 6.5s ease-in-out infinite reverse; }
+@keyframes arcFlow { to { stroke-dashoffset: -240; } }
+@keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@media (max-width: 1120px) { .hero-art { display: none; } }
 .hero-band h1 {
   color: #fff; font-size: 40px; letter-spacing: -0.03em; margin: 0 0 12px;
-  font-weight: 800; max-width: 780px; line-height: 1.08;
+  font-weight: 800; max-width: 640px; line-height: 1.08; position: relative;
 }
 .hero-tag {
   color: rgba(255,255,255,.72); font-size: 16px; font-weight: 400;
@@ -153,16 +174,57 @@ main#app { min-height: 72vh; }
 .hero-points { display: flex; gap: 28px; margin-top: 22px; flex-wrap: wrap; }
 .hero-points span { color: rgba(255,255,255,.78); font-size: 13px; font-weight: 500; letter-spacing: 0.005em; }
 
+/* ---------- Network status strip ---------- */
+.network-strip { max-width: 1140px; margin: 0 auto; padding: 34px 24px 0; }
+.network-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.net-card {
+  background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 18px 20px; display: flex; gap: 14px; align-items: flex-start;
+}
+.net-head { font-weight: 700; font-size: 15px; letter-spacing: -0.015em; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.net-card p { margin: 5px 0 0; font-size: 13px; color: var(--ink-soft); line-height: 1.55; }
+.net-pill {
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+  padding: 3px 9px; border-radius: 999px;
+}
+.net-pill-live { background: #ecfaf8; color: var(--green); border: 1px solid #b8ebe5; }
+.net-pill-soon { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-line); }
+@media (max-width: 720px) { .network-inner { grid-template-columns: 1fr; } }
+
+/* ---------- Coming soon markers ---------- */
+.soon-badge {
+  display: inline-block; font-size: 10.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em;
+  background: #e8f1fe; color: var(--blue); border: 1px solid #bcd7fa;
+  padding: 2px 8px; border-radius: 999px; vertical-align: 2px; white-space: nowrap;
+}
+.soon-notice {
+  background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 11px 16px; margin-bottom: 14px; font-size: 13px; font-weight: 500;
+  color: var(--ink-soft); display: flex; align-items: center; gap: 10px;
+}
+.soon-note {
+  margin-top: 16px; font-size: 13px; line-height: 1.55; color: var(--ink-soft);
+  background: #f4f8fe; border: 1px solid #d7e6fb; border-radius: 8px; padding: 11px 14px;
+}
+.est-tag { font-size: 11px; font-weight: 600; color: var(--ink-faint); letter-spacing: .01em; }
+
 /* ---------- Deals strip ---------- */
 .deals-strip { max-width: 1140px; margin: 0 auto; padding: 40px 24px 68px; }
-.deals-strip h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 18px; }
+.deals-strip h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 18px; display: flex; align-items: center; gap: 10px; }
 .deal-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .deal-card {
-  background: #fff; border-radius: var(--radius); padding: 18px;
+  background: #fff; border-radius: var(--radius); padding: 0; overflow: hidden;
   box-shadow: var(--shadow); cursor: pointer; border: 1.5px solid transparent;
   transition: border-color .15s, transform .15s;
 }
 .deal-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+.deal-band { display: flex; align-items: center; gap: 8px; padding: 11px 16px; }
+.deal-band-gb { background: linear-gradient(120deg, #0b3057, #0770e3); }
+.deal-band-au { background: linear-gradient(120deg, #065f56, #00a698); }
+.deal-band-arrow { color: rgba(255,255,255,.85); font-weight: 700; font-size: 13px; }
+.deal-band-icon { margin-left: auto; font-size: 16px; }
+.deal-body { padding: 13px 16px 16px; }
 .deal-route { font-weight: 700; font-size: 15px; letter-spacing: -0.015em; margin-bottom: 3px; }
 .deal-mode { font-size: 12.5px; font-weight: 500; color: var(--ink-soft); margin-bottom: 14px; }
 .deal-bottom { display: flex; align-items: baseline; justify-content: space-between; }
@@ -405,7 +467,7 @@ main#app { min-height: 72vh; }
 /* ---------- Footer ---------- */
 .footer { background: var(--navy); margin-top: 40px; }
 .footer-inner { max-width: 1140px; margin: 0 auto; padding: 34px 24px; text-align: center; }
-.footer-brand { color: #fff; font-weight: 800; font-size: 17px; letter-spacing: -0.02em; }
+.footer-brand { color: #fff; font-weight: 800; font-size: 17px; letter-spacing: -0.02em; display: flex; align-items: center; justify-content: center; gap: 6px; }
 .footer-brand span { color: rgba(255,255,255,.55); font-weight: 600; font-size: 11.5px; letter-spacing: 0.02em; }
 .footer-tag { color: rgba(255,255,255,.65); font-size: 13px; font-weight: 500; margin-top: 8px; }
 .footer-contact { color: rgba(255,255,255,.65); font-size: 13px; font-weight: 500; margin-top: 12px; }
