@@ -97,7 +97,8 @@ const translations = {
     'quote.field.volume': 'Volume (CBM)',
     'quote.field.weight': 'Weight (kg)',
     'quote.field.cargo': 'Cargo description',
-    'quote.field.postcode': 'Delivery postcode (door services)',
+    'quote.field.address': 'Delivery address',
+    'quote.field.postcode': 'Delivery postcode',
     'calc.toggle': 'CBM calculator',
     'calc.len': 'Length (cm)',
     'calc.wid': 'Width (cm)',
@@ -273,7 +274,8 @@ const translations = {
     'quote.field.volume': '体积（立方米）',
     'quote.field.weight': '重量（公斤）',
     'quote.field.cargo': '货物描述',
-    'quote.field.postcode': '收货邮编（门到门服务）',
+    'quote.field.address': '收货地址',
+    'quote.field.postcode': '收货邮编',
     'calc.toggle': '体积计算器',
     'calc.len': '长（厘米）',
     'calc.wid': '宽（厘米）',
@@ -1018,6 +1020,14 @@ document.addEventListener('DOMContentLoaded', () => {
       renderResults();
     });
   });
+
+  const syncDoorFields = () => {
+    const door = document.getElementById('q_service').value !== 'p2p';
+    document.getElementById('q_addressField').classList.toggle('hidden', !door);
+    document.getElementById('q_postcodeField').classList.toggle('hidden', !door);
+  };
+  document.getElementById('q_service').addEventListener('change', syncDoorFields);
+  syncDoorFields();
 
   document.querySelectorAll('.seg-toggle').forEach(tg => {
     tg.querySelectorAll('.seg-opt').forEach(b => b.addEventListener('click', () => {
