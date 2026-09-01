@@ -148,6 +148,10 @@ const translations = {
     'soon.est': 'est. rate',
     'soon.detailNote': 'Estimated rate — the China network is launching soon. Reserve now to hold your place in the queue for this departure.',
 
+    'incoterm.ddp.full': 'DDP · Delivered Duty Paid — import duties & taxes included',
+    'incoterm.dap.full': 'DAP · Delivered At Place — import duties & taxes paid by buyer',
+    'list.field.incoterm': 'Delivery terms',
+
     'auth.signIn': 'Sign in',
     'auth.register': 'Register',
     'auth.signOut': 'Sign out',
@@ -316,6 +320,10 @@ const translations = {
     'soon.est': '预估价',
     'soon.detailNote': '预估价格——中国网络即将上线。现在预订可提前锁定该班期的排位。',
 
+    'incoterm.ddp.full': 'DDP · 完税后交货——含进口关税和税费',
+    'incoterm.dap.full': 'DAP · 目的地交货——进口关税和税费由买方承担',
+    'list.field.incoterm': '交货条款',
+
     'auth.signIn': '登录',
     'auth.register': '注册',
     'auth.signOut': '退出登录',
@@ -415,6 +423,9 @@ let listings = [
   { id: 16, type: 'air', standby: false, origin: 'sydney',    dest: 'heathrow',   forwarder: forwarders[10], date: '2026-09-04', transitDays: 2,  cutoff: { v: 1, u: 'day' },   capacity: '280', capUnit: 'kg',  price: 6.80, wasPrice: null, priceUnit: 'usd_kg', service: 'p2d', doorFee: 85 },
   { id: 17, type: 'air', standby: false, origin: 'melbourne', dest: 'heathrow',   forwarder: forwarders[8],  date: '2026-09-05', transitDays: 2,  cutoff: { v: 18, u: 'hours' }, capacity: '150', capUnit: 'kg',  price: 6.20, wasPrice: null, priceUnit: 'usd_kg', service: 'p2p', doorFee: null },
 ];
+
+/* Delivery terms: door-to-door listings are sold DDP, the rest DAP */
+listings.forEach(l => { if (!l.incoterm) l.incoterm = l.service === 'd2d' ? 'ddp' : 'dap'; });
 
 let nextId = listings.length + 1;
 let activeSort = 'best';
@@ -530,6 +541,7 @@ function renderResultRow(l) {
         <span class="mode-pill ${l.type}">${icon} ${t('mode.' + l.type)}</span>
         <span class="carrier-name">${fwd(l.forwarder)}</span>
         ${l.service !== 'p2p' ? `<span class="svc-pill">🚚 ${t('service.' + l.service)}</span>` : ''}
+        <span class="inco-pill inco-${l.incoterm}" title="${t('incoterm.' + l.incoterm + '.full')}">${l.incoterm.toUpperCase()}</span>
         ${l.standby ? `<span class="standby-badge">★ ${t('standby')}</span>` : ''}
         ${isComingSoon(l) ? `<span class="soon-badge">${t('soon.badge')}</span>` : ''}
       </div>
@@ -627,6 +639,7 @@ function renderDetail() {
   container.innerHTML = `
   <div class="detail-card">
     <span class="mode-pill ${l.type}">${icon} ${t('mode.' + l.type)}</span>
+    <span class="inco-pill inco-${l.incoterm}" title="${t('incoterm.' + l.incoterm + '.full')}">${l.incoterm.toUpperCase()}</span>
     ${l.standby ? ` <span class="standby-badge">★ ${t('standby')}</span>` : ''}
     <div class="detail-route">${flagImg(l.origin, 'flag-md')} ${city(l.origin)} → ${flagImg(l.dest, 'flag-md')} ${city(l.dest)}</div>
     <div class="detail-forwarder">${fwd(l.forwarder)}</div>
@@ -647,6 +660,7 @@ function renderDetail() {
       <div class="meta-item"><span class="meta-label">${t('detail.transit')}</span><span class="meta-value">${durLabel(l.transitDays)}</span></div>
       <div class="meta-item"><span class="meta-label">${t('detail.cutoff')}</span><span class="meta-value">${cutoffLabel(l.cutoff)}</span></div>
       <div class="meta-item"><span class="meta-label">${t('service.label')}</span><span class="meta-value">${t('service.' + l.service)}${l.doorFee ? ` (+${money(l.doorFee)} ${t('service.doorFee')})` : ''}</span></div>
+      <div class="meta-item"><span class="meta-label">${t('list.field.incoterm')}</span><span class="meta-value">${t('incoterm.' + l.incoterm + '.full')}</span></div>
     </div>
     ${l.standby ? `<div class="standby-note">⚠ ${t('detail.standbyNote')}</div>` : ''}
     ${isComingSoon(l) ? `<div class="soon-note"><span class="soon-badge">${t('soon.badge')}</span> ${t('soon.detailNote')}</div>` : ''}
@@ -896,6 +910,7 @@ function showView(view) {
 
 function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
   document.getElementById('langToggle').textContent = lang === 'en' ? '中文' : 'EN';
   renderAuthArea();
   document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
@@ -986,6 +1001,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  document.querySelectorAll('#f_incoterm .seg-opt').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('#f_incoterm .seg-opt').forEach(x => x.classList.toggle('active', x === b));
+  }));
+
   document.getElementById('listingForm').addEventListener('submit', (e) => {
     e.preventDefault();
     requireAuth(() => {
@@ -1002,9 +1021,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const standby = document.getElementById('f_standby').checked;
       const price = parseFloat(priceRaw.replace(/[^0-9.]/g, '')) || (type === 'sea' ? 50 : 5.5);
       const service = document.getElementById('f_service').value;
+      const activeInco = document.querySelector('#f_incoterm .seg-opt.active');
 
       listings.push({
         service,
+        incoterm: activeInco ? activeInco.dataset.val : 'dap',
         doorFee: service === 'p2p' ? null : (type === 'sea' ? 140 : 90),
         id: nextId++,
         type, standby,
