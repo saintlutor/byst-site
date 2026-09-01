@@ -168,7 +168,9 @@ main#app { min-height: 72vh; }
 .sw-field label {
   font-size: 10.5px; font-weight: 700; color: var(--ink-faint);
   text-transform: uppercase; letter-spacing: .09em;
+  display: flex; align-items: center; gap: 5px;
 }
+.sw-ico { font-size: 11px; filter: grayscale(1); opacity: .8; line-height: 1; }
 .sw-field select, .sw-field input {
   border: none; background: transparent; font-size: 15px; font-weight: 600;
   letter-spacing: -0.01em; color: var(--ink); padding: 3px 0; outline: none; width: 100%;
