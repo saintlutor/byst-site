@@ -456,7 +456,7 @@ function flagImg(key, cls) {
   return `<img class="flag${cls ? ' ' + cls : ''}" src="https://flagcdn.com/w20/${c}.png" srcset="https://flagcdn.com/w40/${c}.png 2x" alt="${c.toUpperCase()}">`;
 }
 function icoSvg(name, cls) {
-  return `<svg class="ico${cls ? ' ' + cls : ''}" aria-hidden="true"><use href="#i-${name}"></use></svg>`;
+  return `<svg class="ico${cls ? ' ' + cls : ''}" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#i-${name}"></use></svg>`;
 }
 function modeIco(type, cls) { return icoSvg(type === 'sea' ? 'ship' : 'plane', cls); }
 function u(key) { return t('unit_' + key); }

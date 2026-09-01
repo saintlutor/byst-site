@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
 
@@ -31,11 +31,11 @@
       <span class="brand-sub">powered by byst</span>
     </button>
     <nav class="nav">
-      <button class="nav-link active" data-view="search"><svg class="ico nav-ico"><use href="#i-search"/></svg><span data-i18n="nav.search">Search</span></button>
-      <button class="nav-link" data-view="results"><svg class="ico nav-ico"><use href="#i-ship"/></svg><span data-i18n="nav.results">Capacity</span></button>
-      <button class="nav-link" data-view="quote"><svg class="ico nav-ico"><use href="#i-chat"/></svg><span data-i18n="nav.quote">Request quotes</span></button>
-      <button class="nav-link" data-view="list"><svg class="ico nav-ico"><use href="#i-box"/></svg><span data-i18n="nav.list">List your capacity</span></button>
-      <button class="nav-link" data-view="standby"><svg class="ico nav-ico"><use href="#i-zap"/></svg><span data-i18n="nav.standby">Standby</span></button>
+      <button class="nav-link active" data-view="search"><svg class="ico nav-ico" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-search"/></svg><span data-i18n="nav.search">Search</span></button>
+      <button class="nav-link" data-view="results"><svg class="ico nav-ico" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-ship"/></svg><span data-i18n="nav.results">Capacity</span></button>
+      <button class="nav-link" data-view="quote"><svg class="ico nav-ico" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chat"/></svg><span data-i18n="nav.quote">Request quotes</span></button>
+      <button class="nav-link" data-view="list"><svg class="ico nav-ico" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-box"/></svg><span data-i18n="nav.list">List your capacity</span></button>
+      <button class="nav-link" data-view="standby"><svg class="ico nav-ico" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-zap"/></svg><span data-i18n="nav.standby">Standby</span></button>
     </nav>
     <button class="lang-toggle" id="currencyToggle">$ USD</button>
     <button class="lang-toggle" id="langToggle">中文</button>
@@ -73,7 +73,7 @@
 
         <div class="search-widget" id="searchWidget">
           <div class="sw-field">
-            <label><svg class="ico sw-ico"><use href="#i-pin"/></svg> <span data-i18n="search.from">From</span></label>
+            <label><svg class="ico sw-ico" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-pin"/></svg> <span data-i18n="search.from">From</span></label>
             <select id="s_origin">
               <option value="any" data-i18n="search.any">All origins</option>
               <option value="sydney" data-i18n="origin.sydney">🇦🇺 Sydney</option>
@@ -85,7 +85,7 @@
           </div>
           <div class="sw-divider"></div>
           <div class="sw-field">
-            <label><svg class="ico sw-ico"><use href="#i-target"/></svg> <span data-i18n="search.to">To</span></label>
+            <label><svg class="ico sw-ico" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-target"/></svg> <span data-i18n="search.to">To</span></label>
             <select id="s_dest">
               <option value="any" data-i18n="search.anyDest">All destinations</option>
               <option value="felixstowe" data-i18n="city.felixstowe">Felixstowe (Sea)</option>
@@ -97,7 +97,7 @@
           </div>
           <div class="sw-divider"></div>
           <div class="sw-field">
-            <label><svg class="ico sw-ico"><use href="#i-plane"/></svg> <span data-i18n="search.mode">Mode</span></label>
+            <label><svg class="ico sw-ico" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-plane"/></svg> <span data-i18n="search.mode">Mode</span></label>
             <select id="s_mode">
               <option value="any" data-i18n="search.anyMode">Sea & Air</option>
               <option value="sea" data-i18n="mode.sea">Sea LCL</option>
@@ -106,7 +106,7 @@
           </div>
           <div class="sw-divider"></div>
           <div class="sw-field">
-            <label><svg class="ico sw-ico"><use href="#i-box"/></svg> <span data-i18n="search.space">Space needed</span></label>
+            <label><svg class="ico sw-ico" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-box"/></svg> <span data-i18n="search.space">Space needed</span></label>
             <input type="text" id="s_space" placeholder="2 CBM / 150 kg">
           </div>
           <button class="sw-btn" id="searchBtn" data-i18n="search.cta">Search space</button>
@@ -526,6 +526,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="app.js"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
