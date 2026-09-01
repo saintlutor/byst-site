@@ -8,19 +8,19 @@ const translations = {
     'nav.standby': 'Standby',
 
     'search.title': 'Find freight space. Millions of kilos of it.',
-    'search.sub': 'Compare real departures from Chinese forwarders and book remaining capacity instantly — China → UK & Australia.',
+    'search.sub': 'Compare real departures from partner forwarders and book remaining capacity instantly — Australia → UK live now, China lanes coming soon.',
     'search.from': 'From',
     'search.to': 'To',
     'search.mode': 'Mode',
     'search.space': 'Space needed',
-    'search.any': 'Anywhere in China',
+    'search.any': 'All origins',
     'search.anyDest': 'All destinations',
     'search.anyMode': 'Sea & Air',
     'search.cta': 'Search space',
     'search.point1': '✓ Live remaining CBM & kg',
     'search.point2': '✓ Standby space up to 40% off',
     'search.point3': '✓ Book before cut-off, instantly',
-    'search.dealsTitle': 'Departing soon from China',
+    'search.dealsTitle': 'Departing soon',
 
     'city.shenzhen': '🇨🇳 Shenzhen',
     'city.guangzhou': '🇨🇳 Guangzhou',
@@ -30,6 +30,8 @@ const translations = {
     'city.sydney': '🇦🇺 Sydney (Sea)',
     'city.melbourne': '🇦🇺 Melbourne (Sea)',
     'city.sydneyair': '🇦🇺 Sydney (Air)',
+    'origin.sydney': '🇦🇺 Sydney',
+    'origin.melbourne': '🇦🇺 Melbourne',
     'mode.sea': 'Sea LCL',
     'mode.air': 'Air freight',
 
@@ -134,7 +136,7 @@ const translations = {
     'net.cn.body': 'Origin coverage across Shenzhen, Guangzhou and Ningbo is being built right now. All rates shown are forwarder estimates until launch.',
     'net.live': 'Live',
     'soon.badge': 'Coming soon',
-    'soon.notice': 'China lanes launch soon — all rates shown are estimates from partner forwarders.',
+    'soon.notice': 'Australia → UK lanes are live and bookable. China lanes launch soon — their rates are forwarder estimates.',
     'soon.est': 'est. rate',
     'soon.detailNote': 'Estimated rate — the China network is launching soon. Reserve now to hold your place in the queue for this departure.',
 
@@ -166,19 +168,19 @@ const translations = {
     'nav.standby': '候补舱位',
 
     'search.title': '搜索货运舱位，数百万公斤任您选。',
-    'search.sub': '比较中国货代的真实班期，即时预订剩余舱位——中国 → 英国和澳大利亚。',
+    'search.sub': '比较合作货代的真实班期，即时预订剩余舱位——澳大利亚 → 英国已开通，中国航线即将上线。',
     'search.from': '起运地',
     'search.to': '目的地',
     'search.mode': '运输方式',
     'search.space': '所需舱位',
-    'search.any': '中国任意城市',
+    'search.any': '任意起运地',
     'search.anyDest': '任意目的地',
     'search.anyMode': '海运和空运',
     'search.cta': '搜索舱位',
     'search.point1': '✓ 实时剩余立方米和公斤数',
     'search.point2': '✓ 候补舱位最高优惠40%',
     'search.point3': '✓ 截关前即时预订',
-    'search.dealsTitle': '即将从中国出发',
+    'search.dealsTitle': '即将出发',
 
     'city.shenzhen': '🇨🇳 深圳',
     'city.guangzhou': '🇨🇳 广州',
@@ -188,6 +190,8 @@ const translations = {
     'city.sydney': '🇦🇺 悉尼（海运）',
     'city.melbourne': '🇦🇺 墨尔本（海运）',
     'city.sydneyair': '🇦🇺 悉尼（空运）',
+    'origin.sydney': '🇦🇺 悉尼',
+    'origin.melbourne': '🇦🇺 墨尔本',
     'mode.sea': '海运拼箱',
     'mode.air': '空运',
 
@@ -292,7 +296,7 @@ const translations = {
     'net.cn.body': '深圳、广州和宁波的起运地网络正在搭建中。正式上线前，所示价格均为货代预估报价。',
     'net.live': '已运营',
     'soon.badge': '即将上线',
-    'soon.notice': '中国航线即将开通——所示价格均为合作货代的预估报价。',
+    'soon.notice': '澳大利亚 → 英国航线已开通，可正式订舱。中国航线即将上线——其价格为货代预估报价。',
     'soon.est': '预估价',
     'soon.detailNote': '预估价格——中国网络即将上线。现在预订可提前锁定该班期的排位。',
 
@@ -369,23 +373,31 @@ const forwarders = [
   { en: 'BlueWave Air & Sea',        zh: '蓝波空海联运' },
   { en: 'Union Bridge Logistics',    zh: '联桥物流' },
   { en: 'Canton Star Freight',       zh: '穗星货运' },
+  { en: 'Southern Cross Logistics',  zh: '南十字物流' },
+  { en: 'Harbour City Freight',      zh: '港城货运' },
+  { en: 'Pacific Gateway Cargo',     zh: '太平洋门户货运' },
 ];
 
 /* price: number; wasPrice: optional pre-discount price for standby rows */
+/* China-origin lanes: coming soon (Nov departures, estimated rates). Australia-origin lanes: live network. */
 let listings = [
-  { id: 1, type: 'sea', standby: false, origin: 'shenzhen',  dest: 'felixstowe', forwarder: forwarders[0], date: '2026-08-18', transitDays: 28, cutoff: { v: 2, u: 'days' },  capacity: '6.2', capUnit: 'cbm', price: 55,   wasPrice: null, priceUnit: 'usd_cbm', service: 'd2d', doorFee: 130 },
-  { id: 2, type: 'sea', standby: true,  origin: 'shenzhen',  dest: 'felixstowe', forwarder: forwarders[1], date: '2026-08-20', transitDays: 29, cutoff: { v: 1, u: 'day' },   capacity: '3.4', capUnit: 'cbm', price: 38,   wasPrice: 58,   priceUnit: 'usd_cbm', service: 'p2p', doorFee: null },
-  { id: 3, type: 'air', standby: false, origin: 'shenzhen',  dest: 'heathrow',   forwarder: forwarders[2], date: '2026-08-12', transitDays: 1,  cutoff: { v: 18, u: 'hours' }, capacity: '410', capUnit: 'kg',  price: 6.20, wasPrice: null, priceUnit: 'usd_kg', service: 'd2d', doorFee: 90 },
-  { id: 4, type: 'air', standby: true,  origin: 'shenzhen',  dest: 'heathrow',   forwarder: forwarders[3], date: '2026-08-13', transitDays: 1,  cutoff: { v: 12, u: 'hours' }, capacity: '180', capUnit: 'kg',  price: 4.10, wasPrice: 6.40, priceUnit: 'usd_kg', service: 'p2d', doorFee: 70 },
-  { id: 5, type: 'sea', standby: false, origin: 'guangzhou', dest: 'felixstowe', forwarder: forwarders[4], date: '2026-08-22', transitDays: 30, cutoff: { v: 3, u: 'days' },  capacity: '9.8', capUnit: 'cbm', price: 52,   wasPrice: null, priceUnit: 'usd_cbm', service: 'd2d', doorFee: 140 },
-  { id: 6, type: 'air', standby: false, origin: 'guangzhou', dest: 'heathrow',   forwarder: forwarders[5], date: '2026-08-15', transitDays: 1,  cutoff: { v: 1, u: 'day' },   capacity: '260', capUnit: 'kg',  price: 5.80, wasPrice: null, priceUnit: 'usd_kg', service: 'p2p', doorFee: null },
-  { id: 7, type: 'sea', standby: true,  origin: 'ningbo',    dest: 'felixstowe', forwarder: forwarders[6], date: '2026-08-25', transitDays: 32, cutoff: { v: 2, u: 'days' },  capacity: '5.1', capUnit: 'cbm', price: 41,   wasPrice: 60,   priceUnit: 'usd_cbm', service: 'p2d', doorFee: 110 },
-  { id: 8, type: 'air', standby: true,  origin: 'shenzhen',  dest: 'heathrow',   forwarder: forwarders[7], date: '2026-08-11', transitDays: 1,  cutoff: { v: 9, u: 'hours' },  capacity: '95',  capUnit: 'kg',  price: 3.60, wasPrice: 6.00, priceUnit: 'usd_kg', service: 'p2p', doorFee: null },
-  { id: 9,  type: 'sea', standby: false, origin: 'shenzhen',  dest: 'sydney',    forwarder: forwarders[2], date: '2026-09-08', transitDays: 14, cutoff: { v: 2, u: 'days' },  capacity: '7.5', capUnit: 'cbm', price: 42,   wasPrice: null, priceUnit: 'usd_cbm', service: 'd2d', doorFee: 120 },
-  { id: 10, type: 'sea', standby: true,  origin: 'guangzhou', dest: 'melbourne', forwarder: forwarders[5], date: '2026-09-10', transitDays: 16, cutoff: { v: 2, u: 'days' },  capacity: '4.2', capUnit: 'cbm', price: 29,   wasPrice: 45,   priceUnit: 'usd_cbm', service: 'p2p', doorFee: null },
-  { id: 11, type: 'air', standby: false, origin: 'shenzhen',  dest: 'sydneyair', forwarder: forwarders[6], date: '2026-09-04', transitDays: 2,  cutoff: { v: 1, u: 'day' },   capacity: '320', capUnit: 'kg',  price: 5.40, wasPrice: null, priceUnit: 'usd_kg', service: 'p2d', doorFee: 80 },
-  { id: 12, type: 'sea', standby: false, origin: 'ningbo',    dest: 'sydney',    forwarder: forwarders[1], date: '2026-09-12', transitDays: 15, cutoff: { v: 3, u: 'days' },  capacity: '11.0', capUnit: 'cbm', price: 39,  wasPrice: null, priceUnit: 'usd_cbm', service: 'p2d', doorFee: 110 },
-  { id: 13, type: 'air', standby: true,  origin: 'guangzhou', dest: 'sydneyair', forwarder: forwarders[3], date: '2026-09-05', transitDays: 2,  cutoff: { v: 14, u: 'hours' }, capacity: '140', capUnit: 'kg',  price: 3.90, wasPrice: 5.80, priceUnit: 'usd_kg', service: 'p2p', doorFee: null },
+  { id: 1, type: 'sea', standby: false, origin: 'shenzhen',  dest: 'felixstowe', forwarder: forwarders[0], date: '2026-11-18', transitDays: 28, cutoff: { v: 2, u: 'days' },  capacity: '6.2', capUnit: 'cbm', price: 55,   wasPrice: null, priceUnit: 'usd_cbm', service: 'd2d', doorFee: 130 },
+  { id: 2, type: 'sea', standby: true,  origin: 'shenzhen',  dest: 'felixstowe', forwarder: forwarders[1], date: '2026-11-20', transitDays: 29, cutoff: { v: 1, u: 'day' },   capacity: '3.4', capUnit: 'cbm', price: 38,   wasPrice: 58,   priceUnit: 'usd_cbm', service: 'p2p', doorFee: null },
+  { id: 3, type: 'air', standby: false, origin: 'shenzhen',  dest: 'heathrow',   forwarder: forwarders[2], date: '2026-11-12', transitDays: 1,  cutoff: { v: 18, u: 'hours' }, capacity: '410', capUnit: 'kg',  price: 6.20, wasPrice: null, priceUnit: 'usd_kg', service: 'd2d', doorFee: 90 },
+  { id: 4, type: 'air', standby: true,  origin: 'shenzhen',  dest: 'heathrow',   forwarder: forwarders[3], date: '2026-11-13', transitDays: 1,  cutoff: { v: 12, u: 'hours' }, capacity: '180', capUnit: 'kg',  price: 4.10, wasPrice: 6.40, priceUnit: 'usd_kg', service: 'p2d', doorFee: 70 },
+  { id: 5, type: 'sea', standby: false, origin: 'guangzhou', dest: 'felixstowe', forwarder: forwarders[4], date: '2026-11-22', transitDays: 30, cutoff: { v: 3, u: 'days' },  capacity: '9.8', capUnit: 'cbm', price: 52,   wasPrice: null, priceUnit: 'usd_cbm', service: 'd2d', doorFee: 140 },
+  { id: 6, type: 'air', standby: false, origin: 'guangzhou', dest: 'heathrow',   forwarder: forwarders[5], date: '2026-11-15', transitDays: 1,  cutoff: { v: 1, u: 'day' },   capacity: '260', capUnit: 'kg',  price: 5.80, wasPrice: null, priceUnit: 'usd_kg', service: 'p2p', doorFee: null },
+  { id: 7, type: 'sea', standby: true,  origin: 'ningbo',    dest: 'felixstowe', forwarder: forwarders[6], date: '2026-11-25', transitDays: 32, cutoff: { v: 2, u: 'days' },  capacity: '5.1', capUnit: 'cbm', price: 41,   wasPrice: 60,   priceUnit: 'usd_cbm', service: 'p2d', doorFee: 110 },
+  { id: 8, type: 'air', standby: true,  origin: 'shenzhen',  dest: 'heathrow',   forwarder: forwarders[7], date: '2026-11-11', transitDays: 1,  cutoff: { v: 9, u: 'hours' },  capacity: '95',  capUnit: 'kg',  price: 3.60, wasPrice: 6.00, priceUnit: 'usd_kg', service: 'p2p', doorFee: null },
+  { id: 9,  type: 'sea', standby: false, origin: 'shenzhen',  dest: 'sydney',    forwarder: forwarders[2], date: '2026-11-08', transitDays: 14, cutoff: { v: 2, u: 'days' },  capacity: '7.5', capUnit: 'cbm', price: 42,   wasPrice: null, priceUnit: 'usd_cbm', service: 'd2d', doorFee: 120 },
+  { id: 10, type: 'sea', standby: true,  origin: 'guangzhou', dest: 'melbourne', forwarder: forwarders[5], date: '2026-11-10', transitDays: 16, cutoff: { v: 2, u: 'days' },  capacity: '4.2', capUnit: 'cbm', price: 29,   wasPrice: 45,   priceUnit: 'usd_cbm', service: 'p2p', doorFee: null },
+  { id: 11, type: 'air', standby: false, origin: 'shenzhen',  dest: 'sydneyair', forwarder: forwarders[6], date: '2026-11-04', transitDays: 2,  cutoff: { v: 1, u: 'day' },   capacity: '320', capUnit: 'kg',  price: 5.40, wasPrice: null, priceUnit: 'usd_kg', service: 'p2d', doorFee: 80 },
+  { id: 12, type: 'sea', standby: false, origin: 'ningbo',    dest: 'sydney',    forwarder: forwarders[1], date: '2026-11-12', transitDays: 15, cutoff: { v: 3, u: 'days' },  capacity: '11.0', capUnit: 'cbm', price: 39,  wasPrice: null, priceUnit: 'usd_cbm', service: 'p2d', doorFee: 110 },
+  { id: 13, type: 'air', standby: true,  origin: 'guangzhou', dest: 'sydneyair', forwarder: forwarders[3], date: '2026-11-05', transitDays: 2,  cutoff: { v: 14, u: 'hours' }, capacity: '140', capUnit: 'kg',  price: 3.90, wasPrice: 5.80, priceUnit: 'usd_kg', service: 'p2p', doorFee: null },
+  { id: 14, type: 'sea', standby: false, origin: 'sydney',    dest: 'felixstowe', forwarder: forwarders[8],  date: '2026-09-06', transitDays: 43, cutoff: { v: 2, u: 'days' },  capacity: '8.4', capUnit: 'cbm', price: 78,   wasPrice: null, priceUnit: 'usd_cbm', service: 'd2d', doorFee: 120 },
+  { id: 15, type: 'sea', standby: true,  origin: 'melbourne', dest: 'felixstowe', forwarder: forwarders[9],  date: '2026-09-10', transitDays: 45, cutoff: { v: 3, u: 'days' },  capacity: '12.0', capUnit: 'cbm', price: 55,  wasPrice: 82,   priceUnit: 'usd_cbm', service: 'p2d', doorFee: 110 },
+  { id: 16, type: 'air', standby: false, origin: 'sydney',    dest: 'heathrow',   forwarder: forwarders[10], date: '2026-09-04', transitDays: 2,  cutoff: { v: 1, u: 'day' },   capacity: '280', capUnit: 'kg',  price: 6.80, wasPrice: null, priceUnit: 'usd_kg', service: 'p2d', doorFee: 85 },
+  { id: 17, type: 'air', standby: false, origin: 'melbourne', dest: 'heathrow',   forwarder: forwarders[8],  date: '2026-09-05', transitDays: 2,  cutoff: { v: 18, u: 'hours' }, capacity: '150', capUnit: 'kg',  price: 6.20, wasPrice: null, priceUnit: 'usd_kg', service: 'p2p', doorFee: null },
 ];
 
 let nextId = listings.length + 1;
@@ -490,6 +502,8 @@ function filteredListings() {
 
 /* ============ Rendering ============ */
 
+function isComingSoon(l) { return cityCountry[l.origin] === 'cn'; }
+
 function renderResultRow(l) {
   const arrive = addDays(l.date, l.transitDays);
   const icon = l.type === 'sea' ? '🚢' : '✈️';
@@ -501,7 +515,7 @@ function renderResultRow(l) {
         <span class="carrier-name">${fwd(l.forwarder)}</span>
         ${l.service !== 'p2p' ? `<span class="svc-pill">🚚 ${t('service.' + l.service)}</span>` : ''}
         ${l.standby ? `<span class="standby-badge">★ ${t('standby')}</span>` : ''}
-        <span class="soon-badge">${t('soon.badge')}</span>
+        ${isComingSoon(l) ? `<span class="soon-badge">${t('soon.badge')}</span>` : ''}
       </div>
       <div class="journey">
         <div class="j-end">
@@ -525,7 +539,7 @@ function renderResultRow(l) {
     <div class="price-col">
       ${l.wasPrice ? `<span class="pc-was">${wasLabel(l)}${u(l.priceUnit)}</span>` : ''}
       <span class="pc-price">${priceLabel(l)}<small>${u(l.priceUnit)}</small></span>
-      <span class="est-tag">${t('soon.est')}</span>
+      ${isComingSoon(l) ? `<span class="est-tag">${t('soon.est')}</span>` : ''}
       <button class="pc-btn">${t('results.select')}</button>
     </div>
   </div>`;
@@ -568,7 +582,9 @@ function filteredAllForTabs() {
 
 function renderDeals() {
   const el = document.getElementById('dealCards');
-  const deals = listings.slice(0, 8).filter(l => l.standby).concat(listings.filter(l => !l.standby)).slice(0, 4);
+  const auDeals = listings.filter(l => cityCountry[l.origin] === 'au').slice(0, 2);
+  const cnDeals = listings.filter(l => cityCountry[l.origin] === 'cn' && l.standby).slice(0, 2);
+  const deals = auDeals.concat(cnDeals).slice(0, 4);
   el.innerHTML = deals.map(l => `
     <div class="deal-card" data-id="${l.id}">
       <div class="deal-band deal-band-${cityCountry[l.dest]}">
@@ -579,7 +595,7 @@ function renderDeals() {
       </div>
       <div class="deal-body">
         <div class="deal-route">${city(l.origin)} → ${city(l.dest)}</div>
-        <div class="deal-mode">${t('mode.' + l.type)}${l.standby ? ` · ★ ${t('standby')}` : ''}</div>
+        <div class="deal-mode">${t('mode.' + l.type)}${l.standby ? ` · ★ ${t('standby')}` : ''}${isComingSoon(l) ? ` <span class="soon-badge">${t('soon.badge')}</span>` : ''}</div>
         <div class="deal-bottom">
           <span class="deal-price">${priceLabel(l)}<small>${u(l.priceUnit)}</small></span>
           <span class="deal-date">${shortDate(l.date)}</span>
@@ -625,12 +641,12 @@ function renderDetail() {
       <div class="meta-item"><span class="meta-label">${t('service.label')}</span><span class="meta-value">${t('service.' + l.service)}${l.doorFee ? ` (+${money(l.doorFee)} ${t('service.doorFee')})` : ''}</span></div>
     </div>
     ${l.standby ? `<div class="standby-note">⚠ ${t('detail.standbyNote')}</div>` : ''}
-    <div class="soon-note"><span class="soon-badge">${t('soon.badge')}</span> ${t('soon.detailNote')}</div>
+    ${isComingSoon(l) ? `<div class="soon-note"><span class="soon-badge">${t('soon.badge')}</span> ${t('soon.detailNote')}</div>` : ''}
     <div class="detail-footer">
       <div>
         ${l.wasPrice ? `<div class="pc-was">${wasLabel(l)}${u(l.priceUnit)}</div>` : ''}
         <span class="pc-price">${priceLabel(l)}<small>${u(l.priceUnit)}</small></span>
-        <span class="est-tag">${t('soon.est')}</span>
+        ${isComingSoon(l) ? `<span class="est-tag">${t('soon.est')}</span>` : ''}
       </div>
       <button class="btn btn-primary" id="reserveBtn">${t('detail.reserve')}</button>
     </div>
@@ -660,11 +676,14 @@ function renderDetail() {
 let lastQuote = null;
 
 function buildQuotes(req) {
-  const aus = req.dest === 'sydney' || req.dest === 'melbourne' || req.dest === 'sydneyair';
-  const seaDays = aus ? 14 : 30;
-  const airDays = aus ? 2 : 1;
-  const seaRates = aus ? [34, 38, 42] : [44, 48, 52];
-  const airRates = aus ? [4.3, 4.8, 5.5] : [4.9, 5.4, 6.1];
+  const auOrigin = cityCountry[req.origin] === 'au';
+  const ausDest = req.dest === 'sydney' || req.dest === 'melbourne' || req.dest === 'sydneyair';
+  let seaDays, airDays, seaRates, airRates;
+  if (auOrigin) { seaDays = 45; airDays = 2; seaRates = [68, 74, 80]; airRates = [6.2, 6.8, 7.5]; }
+  else if (ausDest) { seaDays = 14; airDays = 2; seaRates = [34, 38, 42]; airRates = [4.3, 4.8, 5.5]; }
+  else { seaDays = 30; airDays = 1; seaRates = [44, 48, 52]; airRates = [4.9, 5.4, 6.1]; }
+  const seaFw = auOrigin ? [8, 9, 10] : [4, 0, 6];
+  const airFw = auOrigin ? [10, 8, 9] : [3, 2, 5];
   const mk = (fwdIdx, type, unitPrice, transitDays) => ({
     forwarder: forwarders[fwdIdx], type, unitPrice, transitDays,
     qty: type === 'sea' ? req.volume : req.weight,
@@ -673,9 +692,9 @@ function buildQuotes(req) {
     service: req.service,
     doorFee: req.service === 'p2p' ? 0 : (type === 'sea' ? 140 : 90),
   });
-  if (req.mode === 'sea') return [mk(4, 'sea', seaRates[0], seaDays), mk(0, 'sea', seaRates[1], seaDays - 2), mk(6, 'sea', seaRates[2], seaDays - 4)];
-  if (req.mode === 'air') return [mk(3, 'air', airRates[0], airDays), mk(2, 'air', airRates[1], airDays), mk(5, 'air', airRates[2], airDays)];
-  return [mk(4, 'sea', seaRates[0], seaDays), mk(0, 'sea', seaRates[1], seaDays - 2), mk(3, 'air', airRates[0], airDays)];
+  if (req.mode === 'sea') return [mk(seaFw[0], 'sea', seaRates[0], seaDays), mk(seaFw[1], 'sea', seaRates[1], seaDays - 2), mk(seaFw[2], 'sea', seaRates[2], seaDays - 4)];
+  if (req.mode === 'air') return [mk(airFw[0], 'air', airRates[0], airDays), mk(airFw[1], 'air', airRates[1], airDays), mk(airFw[2], 'air', airRates[2], airDays)];
+  return [mk(seaFw[0], 'sea', seaRates[0], seaDays), mk(seaFw[1], 'sea', seaRates[1], seaDays - 2), mk(airFw[0], 'air', airRates[0], airDays)];
 }
 
 function renderQuotes() {
@@ -963,8 +982,11 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
     requireAuth(() => {
       const type = document.getElementById('f_type').value;
+      const origin = document.getElementById('f_origin').value || 'shenzhen';
       const dest = document.getElementById('f_dest').value || 'felixstowe';
-      const di = destInfo[dest];
+      const di = cityCountry[origin] === 'au'
+        ? { transit: type === 'sea' ? 43 : 2 }
+        : destInfo[dest];
       const capacityRaw = document.getElementById('f_capacity').value || (type === 'sea' ? '5' : '300');
       const priceRaw = document.getElementById('f_price').value || (type === 'sea' ? '50' : '5.50');
       const cutoffRaw = document.getElementById('f_cutoff').value || '2 days';
@@ -978,7 +1000,7 @@ document.addEventListener('DOMContentLoaded', () => {
         doorFee: service === 'p2p' ? null : (type === 'sea' ? 140 : 90),
         id: nextId++,
         type, standby,
-        origin: document.getElementById('f_origin').value || 'shenzhen',
+        origin,
         dest,
         forwarder: forwarders[(nextId + 3) % forwarders.length],
         date: document.getElementById('f_date').value || '2026-09-01',
