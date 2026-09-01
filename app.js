@@ -706,8 +706,11 @@ function buildQuotes(req) {
   else { seaDays = 30; airDays = 1; seaRates = [44, 48, 52]; airRates = [4.9, 5.4, 6.1]; }
   const seaFw = auOrigin ? [8, 9, 10] : [4, 0, 6];
   const airFw = auOrigin ? [10, 8, 9] : [3, 2, 5];
+  const incoterm = req.incoterm || 'dap';
+  /* DDP quotes include import duties & taxes — priced ~15% above DAP */
   const mk = (fwdIdx, type, unitPrice, transitDays) => ({
-    forwarder: forwarders[fwdIdx], type, unitPrice, transitDays,
+    forwarder: forwarders[fwdIdx], type, transitDays, incoterm,
+    unitPrice: incoterm === 'ddp' ? Math.round(unitPrice * 1.15 * 10) / 10 : unitPrice,
     qty: type === 'sea' ? req.volume : req.weight,
     unit: type === 'sea' ? 'usd_cbm' : 'usd_kg',
     qtyUnit: type === 'sea' ? 'cbm' : 'kg',
@@ -734,6 +737,7 @@ function renderQuotes() {
             <span class="mode-pill ${q.type}">${q.type === 'sea' ? '🚢' : '✈️'} ${t('mode.' + q.type)}</span>
             <span class="carrier-name">${fwd(q.forwarder)}</span>
             ${q.service !== 'p2p' ? `<span class="svc-pill">🚚 ${t('service.' + q.service)}</span>` : ''}
+            <span class="inco-pill inco-${q.incoterm}" title="${t('incoterm.' + q.incoterm + '.full')}">${q.incoterm.toUpperCase()}</span>
             ${total(q) === cheapestTotal ? `<span class="standby-badge">★ ${t('sort.cheapest')}</span>` : ''}
           </div>
           <div class="leg-meta" style="margin-top:0;">
@@ -967,11 +971,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('quoteForm').addEventListener('submit', (e) => {
     e.preventDefault();
+    const activeQInco = document.querySelector('#q_incoterm .seg-opt.active');
     const req = {
       origin: document.getElementById('q_origin').value || 'shenzhen',
       dest: document.getElementById('q_dest').value || 'felixstowe',
       mode: document.getElementById('q_mode').value,
       service: document.getElementById('q_service').value,
+      incoterm: activeQInco ? activeQInco.dataset.val : 'dap',
       volume: parseFloat((document.getElementById('q_volume').value || '5').replace(/[^0-9.]/g, '')) || 5,
       weight: parseFloat((document.getElementById('q_weight').value || '300').replace(/[^0-9.]/g, '')) || 300,
     };
@@ -1001,9 +1007,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  document.querySelectorAll('#f_incoterm .seg-opt').forEach(b => b.addEventListener('click', () => {
-    document.querySelectorAll('#f_incoterm .seg-opt').forEach(x => x.classList.toggle('active', x === b));
-  }));
+  document.querySelectorAll('.seg-toggle').forEach(tg => {
+    tg.querySelectorAll('.seg-opt').forEach(b => b.addEventListener('click', () => {
+      tg.querySelectorAll('.seg-opt').forEach(x => x.classList.toggle('active', x === b));
+    }));
+  });
 
   document.getElementById('listingForm').addEventListener('submit', (e) => {
     e.preventDefault();
