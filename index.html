@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FreightScanner — Freight Capacity Marketplace (Demo)</title>
+<title>FreightScanner byst — Freight Capacity Marketplace</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,8 +14,8 @@
 <header class="topbar">
   <div class="topbar-inner">
     <button class="brand" data-goto="search">
-      <span class="brand-mark">F</span>
       <span class="brand-name">FreightScanner</span>
+      <span class="brand-sub">byst</span>
     </button>
     <nav class="nav">
       <button class="nav-link active" data-view="search" data-i18n="nav.search">Search</button>
@@ -26,6 +26,10 @@
     </nav>
     <button class="lang-toggle" id="currencyToggle">$ USD</button>
     <button class="lang-toggle" id="langToggle">中文</button>
+    <div class="auth-area" id="authArea">
+      <button class="auth-btn" id="signInBtn" data-i18n="auth.signIn">Sign in</button>
+      <button class="auth-btn auth-btn-primary" id="registerBtn" data-i18n="auth.register">Register</button>
+    </div>
   </div>
 </header>
 
@@ -52,9 +56,12 @@
           <div class="sw-field">
             <label data-i18n="search.to">To</label>
             <select id="s_dest">
-              <option value="any" data-i18n="search.anyUK">Anywhere in UK</option>
+              <option value="any" data-i18n="search.anyDest">All destinations</option>
               <option value="felixstowe" data-i18n="city.felixstowe">Felixstowe (Sea)</option>
               <option value="heathrow" data-i18n="city.heathrow">Heathrow (Air)</option>
+              <option value="sydney" data-i18n="city.sydney">Sydney (Sea)</option>
+              <option value="melbourne" data-i18n="city.melbourne">Melbourne (Sea)</option>
+              <option value="sydneyair" data-i18n="city.sydneyair">Sydney (Air)</option>
             </select>
           </div>
           <div class="sw-divider"></div>
@@ -178,16 +185,19 @@
           <label class="field">
             <span data-i18n="search.from">From</span>
             <select id="f_origin">
-              <option data-i18n="city.shenzhen">Shenzhen</option>
-              <option data-i18n="city.guangzhou">Guangzhou</option>
-              <option data-i18n="city.ningbo">Ningbo</option>
+              <option value="shenzhen" data-i18n="city.shenzhen">Shenzhen</option>
+              <option value="guangzhou" data-i18n="city.guangzhou">Guangzhou</option>
+              <option value="ningbo" data-i18n="city.ningbo">Ningbo</option>
             </select>
           </label>
           <label class="field">
             <span data-i18n="search.to">To</span>
             <select id="f_dest">
-              <option data-i18n="city.felixstowe">Felixstowe (Sea)</option>
-              <option data-i18n="city.heathrow">Heathrow (Air)</option>
+              <option value="felixstowe" data-i18n="city.felixstowe">Felixstowe (Sea)</option>
+              <option value="heathrow" data-i18n="city.heathrow">Heathrow (Air)</option>
+              <option value="sydney" data-i18n="city.sydney">Sydney (Sea)</option>
+              <option value="melbourne" data-i18n="city.melbourne">Melbourne (Sea)</option>
+              <option value="sydneyair" data-i18n="city.sydneyair">Sydney (Air)</option>
             </select>
           </label>
           <label class="field">
@@ -239,16 +249,19 @@
           <label class="field">
             <span data-i18n="search.from">From</span>
             <select id="q_origin">
-              <option data-i18n="city.shenzhen">Shenzhen</option>
-              <option data-i18n="city.guangzhou">Guangzhou</option>
-              <option data-i18n="city.ningbo">Ningbo</option>
+              <option value="shenzhen" data-i18n="city.shenzhen">Shenzhen</option>
+              <option value="guangzhou" data-i18n="city.guangzhou">Guangzhou</option>
+              <option value="ningbo" data-i18n="city.ningbo">Ningbo</option>
             </select>
           </label>
           <label class="field">
             <span data-i18n="search.to">To</span>
             <select id="q_dest">
-              <option data-i18n="city.felixstowe">Felixstowe (Sea)</option>
-              <option data-i18n="city.heathrow">Heathrow (Air)</option>
+              <option value="felixstowe" data-i18n="city.felixstowe">Felixstowe (Sea)</option>
+              <option value="heathrow" data-i18n="city.heathrow">Heathrow (Air)</option>
+              <option value="sydney" data-i18n="city.sydney">Sydney (Sea)</option>
+              <option value="melbourne" data-i18n="city.melbourne">Melbourne (Sea)</option>
+              <option value="sydneyair" data-i18n="city.sydneyair">Sydney (Air)</option>
             </select>
           </label>
           <label class="field">
@@ -272,7 +285,7 @@
             </select>
           </label>
           <label class="field">
-            <span data-i18n="quote.field.postcode">UK delivery postcode (door services)</span>
+            <span data-i18n="quote.field.postcode">Delivery postcode (door services)</span>
             <input type="text" id="q_postcode" placeholder="e.g. B1 1AA">
           </label>
           <label class="field">
@@ -350,9 +363,68 @@
 </main>
 
 <footer class="footer">
-  <p data-i18n="footer.note">Prototype for discussion purposes — no real bookings, no real capacity listed.</p>
+  <div class="footer-inner">
+    <div class="footer-brand">FreightScanner <span>byst</span></div>
+    <p class="footer-tag" data-i18n="footer.tagline">The freight capacity marketplace — China → UK & Australia.</p>
+    <p class="footer-contact"><span data-i18n="footer.contact">Contact</span>: <a href="mailto:info@byst.uk">info@byst.uk</a></p>
+    <p class="footer-copy">© 2026 Byst</p>
+  </div>
 </footer>
 
+<!-- ===================== AUTH MODAL ===================== -->
+<div class="modal-overlay hidden" id="authModal">
+  <div class="modal-card">
+    <button class="modal-close" id="authClose" aria-label="Close">×</button>
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-authtab="signin" data-i18n="auth.signIn">Sign in</button>
+      <button class="auth-tab" data-authtab="register" data-i18n="auth.register">Register</button>
+    </div>
+    <p class="auth-gate-note hidden" id="authGateNote" data-i18n="auth.gateNote">Sign in or create a free account to continue.</p>
+
+    <form id="signinForm" class="auth-form">
+      <label class="field">
+        <span data-i18n="auth.email">Email</span>
+        <input type="email" id="si_email" required autocomplete="email">
+      </label>
+      <label class="field">
+        <span data-i18n="auth.password">Password</span>
+        <input type="password" id="si_password" required autocomplete="current-password">
+      </label>
+      <button type="submit" class="btn btn-primary auth-submit" data-i18n="auth.signIn">Sign in</button>
+    </form>
+
+    <form id="registerForm" class="auth-form hidden">
+      <label class="field">
+        <span data-i18n="auth.fullName">Full name</span>
+        <input type="text" id="rg_name" required autocomplete="name">
+      </label>
+      <label class="field">
+        <span data-i18n="auth.company">Company (optional)</span>
+        <input type="text" id="rg_company" autocomplete="organization">
+      </label>
+      <label class="field">
+        <span data-i18n="auth.accountType">I am a…</span>
+        <select id="rg_type">
+          <option value="importer" data-i18n="auth.importer">Importer / buyer</option>
+          <option value="forwarder" data-i18n="auth.forwarder">Freight forwarder</option>
+        </select>
+      </label>
+      <label class="field">
+        <span data-i18n="auth.email">Email</span>
+        <input type="email" id="rg_email" required autocomplete="email">
+      </label>
+      <label class="field">
+        <span data-i18n="auth.password">Password</span>
+        <input type="password" id="rg_password" required minlength="8" autocomplete="new-password" placeholder="8+ characters">
+      </label>
+      <button type="submit" class="btn btn-primary auth-submit" data-i18n="auth.createAccount">Create account</button>
+    </form>
+
+    <div class="auth-msg hidden" id="authMsg"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

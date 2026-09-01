@@ -8,13 +8,13 @@ const translations = {
     'nav.standby': 'Standby',
 
     'search.title': 'Find freight space. Millions of kilos of it.',
-    'search.sub': 'Compare real departures from Chinese forwarders and book remaining capacity instantly — China → UK.',
+    'search.sub': 'Compare real departures from Chinese forwarders and book remaining capacity instantly — China → UK & Australia.',
     'search.from': 'From',
     'search.to': 'To',
     'search.mode': 'Mode',
     'search.space': 'Space needed',
     'search.any': 'Anywhere in China',
-    'search.anyUK': 'Anywhere in UK',
+    'search.anyDest': 'All destinations',
     'search.anyMode': 'Sea & Air',
     'search.cta': 'Search space',
     'search.point1': '✓ Live remaining CBM & kg',
@@ -27,6 +27,9 @@ const translations = {
     'city.ningbo': 'Ningbo',
     'city.felixstowe': 'Felixstowe (Sea)',
     'city.heathrow': 'Heathrow (Air)',
+    'city.sydney': 'Sydney (Sea)',
+    'city.melbourne': 'Melbourne (Sea)',
+    'city.sydneyair': 'Sydney (Air)',
     'mode.sea': 'Sea LCL',
     'mode.air': 'Air freight',
 
@@ -92,7 +95,7 @@ const translations = {
     'quote.field.volume': 'Volume (CBM)',
     'quote.field.weight': 'Weight (kg)',
     'quote.field.cargo': 'Cargo description',
-    'quote.field.postcode': 'UK delivery postcode (door services)',
+    'quote.field.postcode': 'Delivery postcode (door services)',
     'calc.toggle': 'CBM calculator',
     'calc.len': 'Length (cm)',
     'calc.wid': 'Width (cm)',
@@ -122,7 +125,24 @@ const translations = {
     'standby.step3b.body': 'The booking rolls to the next departure automatically, or refunds. No awkward conversation.',
     'standby.cta': 'See standby space in results',
 
-    'footer.note': 'Prototype for discussion purposes — no real bookings, no real capacity listed.',
+    'footer.tagline': 'The freight capacity marketplace — China → UK & Australia.',
+    'footer.contact': 'Contact',
+
+    'auth.signIn': 'Sign in',
+    'auth.register': 'Register',
+    'auth.signOut': 'Sign out',
+    'auth.email': 'Email',
+    'auth.password': 'Password',
+    'auth.fullName': 'Full name',
+    'auth.company': 'Company (optional)',
+    'auth.accountType': 'I am a…',
+    'auth.importer': 'Importer / buyer',
+    'auth.forwarder': 'Freight forwarder',
+    'auth.createAccount': 'Create account',
+    'auth.gateNote': 'Sign in or create a free account to continue.',
+    'auth.checkEmail': 'Account created — check your inbox and click the confirmation link, then sign in.',
+    'auth.welcome': 'Signed in',
+    'auth.working': 'Working…',
 
     unit_cbm: 'CBM', unit_kg: 'kg',
     unit_usd_cbm: '/CBM', unit_usd_kg: '/kg',
@@ -136,13 +156,13 @@ const translations = {
     'nav.standby': '候补舱位',
 
     'search.title': '搜索货运舱位，数百万公斤任您选。',
-    'search.sub': '比较中国货代的真实班期，即时预订剩余舱位——中国 → 英国。',
+    'search.sub': '比较中国货代的真实班期，即时预订剩余舱位——中国 → 英国和澳大利亚。',
     'search.from': '起运地',
     'search.to': '目的地',
     'search.mode': '运输方式',
     'search.space': '所需舱位',
     'search.any': '中国任意城市',
-    'search.anyUK': '英国任意目的地',
+    'search.anyDest': '任意目的地',
     'search.anyMode': '海运和空运',
     'search.cta': '搜索舱位',
     'search.point1': '✓ 实时剩余立方米和公斤数',
@@ -155,6 +175,9 @@ const translations = {
     'city.ningbo': '宁波',
     'city.felixstowe': '费利克斯托（海运）',
     'city.heathrow': '希思罗（空运）',
+    'city.sydney': '悉尼（海运）',
+    'city.melbourne': '墨尔本（海运）',
+    'city.sydneyair': '悉尼（空运）',
     'mode.sea': '海运拼箱',
     'mode.air': '空运',
 
@@ -220,7 +243,7 @@ const translations = {
     'quote.field.volume': '体积（立方米）',
     'quote.field.weight': '重量（公斤）',
     'quote.field.cargo': '货物描述',
-    'quote.field.postcode': '英国收货邮编（门到门服务）',
+    'quote.field.postcode': '收货邮编（门到门服务）',
     'calc.toggle': '体积计算器',
     'calc.len': '长（厘米）',
     'calc.wid': '宽（厘米）',
@@ -250,7 +273,24 @@ const translations = {
     'standby.step3b.body': '预订将自动延期至下一班，或全额退款。无需尴尬的沟通。',
     'standby.cta': '查看结果中的候补舱位',
 
-    'footer.note': '本原型仅供讨论使用——不涉及真实预订，未列出真实舱位。',
+    'footer.tagline': '货运舱位交易平台——中国 → 英国和澳大利亚。',
+    'footer.contact': '联系我们',
+
+    'auth.signIn': '登录',
+    'auth.register': '注册',
+    'auth.signOut': '退出登录',
+    'auth.email': '邮箱',
+    'auth.password': '密码',
+    'auth.fullName': '姓名',
+    'auth.company': '公司（选填）',
+    'auth.accountType': '我是…',
+    'auth.importer': '进口商 / 买家',
+    'auth.forwarder': '货运代理',
+    'auth.createAccount': '创建账户',
+    'auth.gateNote': '登录或免费注册后继续。',
+    'auth.checkEmail': '账户已创建——请查收邮件并点击确认链接，然后登录。',
+    'auth.welcome': '已登录',
+    'auth.working': '处理中…',
 
     unit_cbm: '立方米', unit_kg: '公斤',
     unit_usd_cbm: '/立方米', unit_usd_kg: '/公斤',
@@ -267,6 +307,7 @@ function t(key) { return translations[lang][key] || key; }
 const currencies = [
   { code: 'usd', symbol: '$', label: '$ USD', rate: 1 },
   { code: 'gbp', symbol: '£', label: '£ GBP', rate: 0.79 },
+  { code: 'aud', symbol: 'A$', label: 'A$ AUD', rate: 1.52 },
   { code: 'cny', symbol: '¥', label: '¥ CNY', rate: 7.2 },
 ];
 let currencyIdx = 0;
@@ -285,6 +326,18 @@ const cityShort = {
   ningbo:     { en: 'Ningbo',     zh: '宁波' },
   felixstowe: { en: 'Felixstowe', zh: '费利克斯托' },
   heathrow:   { en: 'Heathrow',   zh: '希思罗' },
+  sydney:     { en: 'Sydney',     zh: '悉尼' },
+  melbourne:  { en: 'Melbourne',  zh: '墨尔本' },
+  sydneyair:  { en: 'Sydney',     zh: '悉尼' },
+};
+
+/* dest → mode + typical transit days */
+const destInfo = {
+  felixstowe: { mode: 'sea', transit: 28 },
+  heathrow:   { mode: 'air', transit: 1 },
+  sydney:     { mode: 'sea', transit: 14 },
+  melbourne:  { mode: 'sea', transit: 16 },
+  sydneyair:  { mode: 'air', transit: 2 },
 };
 
 const forwarders = [
@@ -308,6 +361,11 @@ let listings = [
   { id: 6, type: 'air', standby: false, origin: 'guangzhou', dest: 'heathrow',   forwarder: forwarders[5], date: '2026-08-15', transitDays: 1,  cutoff: { v: 1, u: 'day' },   capacity: '260', capUnit: 'kg',  price: 5.80, wasPrice: null, priceUnit: 'usd_kg', service: 'p2p', doorFee: null },
   { id: 7, type: 'sea', standby: true,  origin: 'ningbo',    dest: 'felixstowe', forwarder: forwarders[6], date: '2026-08-25', transitDays: 32, cutoff: { v: 2, u: 'days' },  capacity: '5.1', capUnit: 'cbm', price: 41,   wasPrice: 60,   priceUnit: 'usd_cbm', service: 'p2d', doorFee: 110 },
   { id: 8, type: 'air', standby: true,  origin: 'shenzhen',  dest: 'heathrow',   forwarder: forwarders[7], date: '2026-08-11', transitDays: 1,  cutoff: { v: 9, u: 'hours' },  capacity: '95',  capUnit: 'kg',  price: 3.60, wasPrice: 6.00, priceUnit: 'usd_kg', service: 'p2p', doorFee: null },
+  { id: 9,  type: 'sea', standby: false, origin: 'shenzhen',  dest: 'sydney',    forwarder: forwarders[2], date: '2026-09-08', transitDays: 14, cutoff: { v: 2, u: 'days' },  capacity: '7.5', capUnit: 'cbm', price: 42,   wasPrice: null, priceUnit: 'usd_cbm', service: 'd2d', doorFee: 120 },
+  { id: 10, type: 'sea', standby: true,  origin: 'guangzhou', dest: 'melbourne', forwarder: forwarders[5], date: '2026-09-10', transitDays: 16, cutoff: { v: 2, u: 'days' },  capacity: '4.2', capUnit: 'cbm', price: 29,   wasPrice: 45,   priceUnit: 'usd_cbm', service: 'p2p', doorFee: null },
+  { id: 11, type: 'air', standby: false, origin: 'shenzhen',  dest: 'sydneyair', forwarder: forwarders[6], date: '2026-09-04', transitDays: 2,  cutoff: { v: 1, u: 'day' },   capacity: '320', capUnit: 'kg',  price: 5.40, wasPrice: null, priceUnit: 'usd_kg', service: 'p2d', doorFee: 80 },
+  { id: 12, type: 'sea', standby: false, origin: 'ningbo',    dest: 'sydney',    forwarder: forwarders[1], date: '2026-09-12', transitDays: 15, cutoff: { v: 3, u: 'days' },  capacity: '11.0', capUnit: 'cbm', price: 39,  wasPrice: null, priceUnit: 'usd_cbm', service: 'p2d', doorFee: 110 },
+  { id: 13, type: 'air', standby: true,  origin: 'guangzhou', dest: 'sydneyair', forwarder: forwarders[3], date: '2026-09-05', transitDays: 2,  cutoff: { v: 14, u: 'hours' }, capacity: '140', capUnit: 'kg',  price: 3.90, wasPrice: 5.80, priceUnit: 'usd_kg', service: 'p2p', doorFee: null },
 ];
 
 let nextId = listings.length + 1;
@@ -547,11 +605,11 @@ function renderDetail() {
   tick();
   cdTimer = setInterval(tick, 1000);
 
-  document.getElementById('reserveBtn').addEventListener('click', () => {
+  document.getElementById('reserveBtn').addEventListener('click', () => requireAuth(() => {
     document.getElementById('confirmDetail').textContent =
       `${city(l.origin)} → ${city(l.dest)} · ${fwd(l.forwarder)} · ${t('confirm.detail')} ${l.date}`;
     showView('confirm');
-  });
+  }));
 }
 
 /* ============ RFQ (buyer quote requests) ============ */
@@ -559,6 +617,11 @@ function renderDetail() {
 let lastQuote = null;
 
 function buildQuotes(req) {
+  const aus = req.dest === 'sydney' || req.dest === 'melbourne' || req.dest === 'sydneyair';
+  const seaDays = aus ? 14 : 30;
+  const airDays = aus ? 2 : 1;
+  const seaRates = aus ? [34, 38, 42] : [44, 48, 52];
+  const airRates = aus ? [4.3, 4.8, 5.5] : [4.9, 5.4, 6.1];
   const mk = (fwdIdx, type, unitPrice, transitDays) => ({
     forwarder: forwarders[fwdIdx], type, unitPrice, transitDays,
     qty: type === 'sea' ? req.volume : req.weight,
@@ -567,9 +630,9 @@ function buildQuotes(req) {
     service: req.service,
     doorFee: req.service === 'p2p' ? 0 : (type === 'sea' ? 140 : 90),
   });
-  if (req.mode === 'sea') return [mk(4, 'sea', 44, 30), mk(0, 'sea', 48, 28), mk(6, 'sea', 52, 26)];
-  if (req.mode === 'air') return [mk(3, 'air', 4.9, 1), mk(2, 'air', 5.4, 1), mk(5, 'air', 6.1, 1)];
-  return [mk(4, 'sea', 44, 30), mk(0, 'sea', 48, 28), mk(3, 'air', 4.9, 1)];
+  if (req.mode === 'sea') return [mk(4, 'sea', seaRates[0], seaDays), mk(0, 'sea', seaRates[1], seaDays - 2), mk(6, 'sea', seaRates[2], seaDays - 4)];
+  if (req.mode === 'air') return [mk(3, 'air', airRates[0], airDays), mk(2, 'air', airRates[1], airDays), mk(5, 'air', airRates[2], airDays)];
+  return [mk(4, 'sea', seaRates[0], seaDays), mk(0, 'sea', seaRates[1], seaDays - 2), mk(3, 'air', airRates[0], airDays)];
 }
 
 function renderQuotes() {
@@ -603,12 +666,143 @@ function renderQuotes() {
       </div>`).join('')}
   `;
   box.querySelectorAll('.quote-row').forEach(row => {
-    row.addEventListener('click', () => {
+    row.addEventListener('click', () => requireAuth(() => {
       const q = lastQuote.quotes[Number(row.dataset.qi)];
       document.getElementById('confirmDetail').textContent =
         `${city(lastQuote.origin)} → ${city(lastQuote.dest)} · ${fwd(q.forwarder)} · ${t('service.' + q.service)} · ${money(q.unitPrice * q.qty + q.doorFee)}`;
       showView('confirm');
+    }));
+  });
+}
+
+/* ============ Auth (Supabase) ============ */
+
+const SUPABASE_URL = 'https://gfmjqwgbtramqrizebfp.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_mKVgSusMD01nK5xV_UU1PA_ZxTkm491';
+const sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+let currentUser = null;
+let pendingAction = null;
+
+function userLabel() {
+  if (!currentUser) return '';
+  return (currentUser.user_metadata && currentUser.user_metadata.full_name) || currentUser.email;
+}
+
+function renderAuthArea() {
+  const area = document.getElementById('authArea');
+  if (!area) return;
+  if (currentUser) {
+    area.innerHTML = `
+      <span class="auth-user" title="${currentUser.email}">${userLabel()}</span>
+      <button class="auth-btn" id="signOutBtn">${t('auth.signOut')}</button>`;
+    document.getElementById('signOutBtn').addEventListener('click', () => { if (sb) sb.auth.signOut(); });
+  } else {
+    area.innerHTML = `
+      <button class="auth-btn" id="signInBtn">${t('auth.signIn')}</button>
+      <button class="auth-btn auth-btn-primary" id="registerBtn">${t('auth.register')}</button>`;
+    document.getElementById('signInBtn').addEventListener('click', () => openAuthModal('signin', false));
+    document.getElementById('registerBtn').addEventListener('click', () => openAuthModal('register', false));
+  }
+}
+
+function setAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(b => b.classList.toggle('active', b.dataset.authtab === tab));
+  document.getElementById('signinForm').classList.toggle('hidden', tab !== 'signin');
+  document.getElementById('registerForm').classList.toggle('hidden', tab !== 'register');
+  hideAuthMsg();
+}
+
+function openAuthModal(tab, gated) {
+  document.getElementById('authModal').classList.remove('hidden');
+  document.getElementById('authGateNote').classList.toggle('hidden', !gated);
+  setAuthTab(tab);
+}
+
+function closeAuthModal() {
+  document.getElementById('authModal').classList.add('hidden');
+  pendingAction = null;
+}
+
+function showAuthMsg(text, isError) {
+  const el = document.getElementById('authMsg');
+  el.textContent = text;
+  el.classList.remove('hidden');
+  el.classList.toggle('auth-msg-error', !!isError);
+}
+function hideAuthMsg() {
+  const el = document.getElementById('authMsg');
+  el.classList.add('hidden');
+  el.classList.remove('auth-msg-error');
+}
+
+function requireAuth(fn) {
+  if (currentUser || !sb) { fn(); return; }
+  pendingAction = fn;
+  openAuthModal('signin', true);
+}
+
+function wireAuth() {
+  renderAuthArea();
+  if (!sb) return;
+
+  sb.auth.getSession().then(({ data }) => {
+    currentUser = data.session ? data.session.user : null;
+    renderAuthArea();
+  });
+  sb.auth.onAuthStateChange((_event, session) => {
+    currentUser = session ? session.user : null;
+    renderAuthArea();
+  });
+
+  document.getElementById('authClose').addEventListener('click', closeAuthModal);
+  document.getElementById('authModal').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('authModal')) closeAuthModal();
+  });
+  document.querySelectorAll('.auth-tab').forEach(b =>
+    b.addEventListener('click', () => setAuthTab(b.dataset.authtab)));
+
+  document.getElementById('signinForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    showAuthMsg(t('auth.working'), false);
+    const { error } = await sb.auth.signInWithPassword({
+      email: document.getElementById('si_email').value.trim(),
+      password: document.getElementById('si_password').value,
     });
+    if (error) { showAuthMsg(error.message, true); return; }
+    const action = pendingAction;
+    pendingAction = null;
+    document.getElementById('authModal').classList.add('hidden');
+    e.target.reset();
+    if (action) action();
+  });
+
+  document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    showAuthMsg(t('auth.working'), false);
+    const { data, error } = await sb.auth.signUp({
+      email: document.getElementById('rg_email').value.trim(),
+      password: document.getElementById('rg_password').value,
+      options: {
+        data: {
+          full_name: document.getElementById('rg_name').value.trim(),
+          company: document.getElementById('rg_company').value.trim(),
+          account_type: document.getElementById('rg_type').value,
+        },
+        emailRedirectTo: 'https://byst.uk/',
+      },
+    });
+    if (error) { showAuthMsg(error.message, true); return; }
+    if (data.session) {
+      const action = pendingAction;
+      pendingAction = null;
+      document.getElementById('authModal').classList.add('hidden');
+      e.target.reset();
+      if (action) action();
+    } else {
+      showAuthMsg(t('auth.checkEmail'), false);
+      e.target.reset();
+    }
   });
 }
 
@@ -633,6 +827,7 @@ function showView(view) {
 function applyTranslations() {
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
   document.getElementById('langToggle').textContent = lang === 'en' ? '中文' : 'EN';
+  renderAuthArea();
   document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
   const current = [...document.querySelectorAll('.view')].find(v => !v.classList.contains('hidden'));
   if (current) {
@@ -687,11 +882,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('quoteForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    const originKeys = ['shenzhen', 'guangzhou', 'ningbo'];
-    const destKeys = ['felixstowe', 'heathrow'];
     const req = {
-      origin: originKeys[document.getElementById('q_origin').selectedIndex] || 'shenzhen',
-      dest: destKeys[document.getElementById('q_dest').selectedIndex] || 'felixstowe',
+      origin: document.getElementById('q_origin').value || 'shenzhen',
+      dest: document.getElementById('q_dest').value || 'felixstowe',
       mode: document.getElementById('q_mode').value,
       service: document.getElementById('q_service').value,
       volume: parseFloat((document.getElementById('q_volume').value || '5').replace(/[^0-9.]/g, '')) || 5,
@@ -725,41 +918,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('listingForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    const type = document.getElementById('f_type').value;
-    const originKeys = ['shenzhen', 'guangzhou', 'ningbo'];
-    const destKeys = ['felixstowe', 'heathrow'];
-    const capacityRaw = document.getElementById('f_capacity').value || (type === 'sea' ? '5' : '300');
-    const priceRaw = document.getElementById('f_price').value || (type === 'sea' ? '50' : '5.50');
-    const cutoffRaw = document.getElementById('f_cutoff').value || '2 days';
-    const cutoffNum = parseFloat(cutoffRaw.replace(/[^0-9.]/g, '')) || 2;
-    const standby = document.getElementById('f_standby').checked;
-    const price = parseFloat(priceRaw.replace(/[^0-9.]/g, '')) || (type === 'sea' ? 50 : 5.5);
-    const service = document.getElementById('f_service').value;
+    requireAuth(() => {
+      const type = document.getElementById('f_type').value;
+      const dest = document.getElementById('f_dest').value || 'felixstowe';
+      const di = destInfo[dest];
+      const capacityRaw = document.getElementById('f_capacity').value || (type === 'sea' ? '5' : '300');
+      const priceRaw = document.getElementById('f_price').value || (type === 'sea' ? '50' : '5.50');
+      const cutoffRaw = document.getElementById('f_cutoff').value || '2 days';
+      const cutoffNum = parseFloat(cutoffRaw.replace(/[^0-9.]/g, '')) || 2;
+      const standby = document.getElementById('f_standby').checked;
+      const price = parseFloat(priceRaw.replace(/[^0-9.]/g, '')) || (type === 'sea' ? 50 : 5.5);
+      const service = document.getElementById('f_service').value;
 
-    listings.push({
-      service,
-      doorFee: service === 'p2p' ? null : (type === 'sea' ? 140 : 90),
-      id: nextId++,
-      type, standby,
-      origin: originKeys[document.getElementById('f_origin').selectedIndex] || 'shenzhen',
-      dest: destKeys[document.getElementById('f_dest').selectedIndex] || 'felixstowe',
-      forwarder: forwarders[(nextId + 3) % forwarders.length],
-      date: document.getElementById('f_date').value || '2026-09-01',
-      transitDays: type === 'sea' ? 28 : 1,
-      cutoff: { v: cutoffNum, u: /hour/i.test(cutoffRaw) ? 'hours' : (cutoffNum === 1 ? 'day' : 'days') },
-      capacity: capacityRaw.replace(/[^0-9.]/g, '') || '5',
-      capUnit: type === 'sea' ? 'cbm' : 'kg',
-      price,
-      wasPrice: standby ? Math.round(price * 1.5 * 10) / 10 : null,
-      priceUnit: type === 'sea' ? 'usd_cbm' : 'usd_kg',
+      listings.push({
+        service,
+        doorFee: service === 'p2p' ? null : (type === 'sea' ? 140 : 90),
+        id: nextId++,
+        type, standby,
+        origin: document.getElementById('f_origin').value || 'shenzhen',
+        dest,
+        forwarder: forwarders[(nextId + 3) % forwarders.length],
+        date: document.getElementById('f_date').value || '2026-09-01',
+        transitDays: di ? di.transit : (type === 'sea' ? 28 : 1),
+        cutoff: { v: cutoffNum, u: /hour/i.test(cutoffRaw) ? 'hours' : (cutoffNum === 1 ? 'day' : 'days') },
+        capacity: capacityRaw.replace(/[^0-9.]/g, '') || '5',
+        capUnit: type === 'sea' ? 'cbm' : 'kg',
+        price,
+        wasPrice: standby ? Math.round(price * 1.5 * 10) / 10 : null,
+        priceUnit: type === 'sea' ? 'usd_cbm' : 'usd_kg',
+      });
+
+      const box = document.getElementById('justPublished');
+      box.classList.remove('hidden');
+      box.innerHTML = `<div class="publish-success">${t('list.published.title')}<br><span>${t('list.published.body')}</span></div>`;
+      document.getElementById('listingForm').reset();
     });
-
-    const box = document.getElementById('justPublished');
-    box.classList.remove('hidden');
-    box.innerHTML = `<div class="publish-success">${t('list.published.title')}<br><span>${t('list.published.body')}</span></div>`;
-    e.target.reset();
   });
 
+  wireAuth();
   applyTranslations();
   showView('search');
 });
