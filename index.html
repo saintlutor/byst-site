@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreightScanner — Freight Capacity Marketplace (Demo)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="brand" data-goto="search">
+      <span class="brand-mark">F</span>
+      <span class="brand-name">FreightScanner</span>
+    </button>
+    <nav class="nav">
+      <button class="nav-link active" data-view="search" data-i18n="nav.search">Search</button>
+      <button class="nav-link" data-view="results" data-i18n="nav.results">Capacity</button>
+      <button class="nav-link" data-view="quote" data-i18n="nav.quote">Request quotes</button>
+      <button class="nav-link" data-view="list" data-i18n="nav.list">List your capacity</button>
+      <button class="nav-link" data-view="standby" data-i18n="nav.standby">Standby</button>
+    </nav>
+    <button class="lang-toggle" id="currencyToggle">$ USD</button>
+    <button class="lang-toggle" id="langToggle">中文</button>
+  </div>
+</header>
+
+<main id="app">
+
+  <!-- ===================== SEARCH (HOME) ===================== -->
+  <section class="view" id="view-search">
+    <div class="hero-band">
+      <div class="hero-band-inner">
+        <h1 data-i18n="search.title">Find freight space. Millions of kilos of it.</h1>
+        <p class="hero-tag" data-i18n="search.sub">Compare real departures from Chinese forwarders and book remaining capacity instantly — China → UK.</p>
+
+        <div class="search-widget" id="searchWidget">
+          <div class="sw-field">
+            <label data-i18n="search.from">From</label>
+            <select id="s_origin">
+              <option value="any" data-i18n="search.any">Anywhere in China</option>
+              <option value="shenzhen" data-i18n="city.shenzhen">Shenzhen</option>
+              <option value="guangzhou" data-i18n="city.guangzhou">Guangzhou</option>
+              <option value="ningbo" data-i18n="city.ningbo">Ningbo</option>
+            </select>
+          </div>
+          <div class="sw-divider"></div>
+          <div class="sw-field">
+            <label data-i18n="search.to">To</label>
+            <select id="s_dest">
+              <option value="any" data-i18n="search.anyUK">Anywhere in UK</option>
+              <option value="felixstowe" data-i18n="city.felixstowe">Felixstowe (Sea)</option>
+              <option value="heathrow" data-i18n="city.heathrow">Heathrow (Air)</option>
+            </select>
+          </div>
+          <div class="sw-divider"></div>
+          <div class="sw-field">
+            <label data-i18n="search.mode">Mode</label>
+            <select id="s_mode">
+              <option value="any" data-i18n="search.anyMode">Sea & Air</option>
+              <option value="sea" data-i18n="mode.sea">Sea LCL</option>
+              <option value="air" data-i18n="mode.air">Air freight</option>
+            </select>
+          </div>
+          <div class="sw-divider"></div>
+          <div class="sw-field">
+            <label data-i18n="search.space">Space needed</label>
+            <input type="text" id="s_space" placeholder="2 CBM / 150 kg">
+          </div>
+          <button class="sw-btn" id="searchBtn" data-i18n="search.cta">Search space</button>
+        </div>
+
+        <div class="hero-points">
+          <span data-i18n="search.point1">✓ Live remaining CBM & kg</span>
+          <span data-i18n="search.point2">✓ Standby space up to 40% off</span>
+          <span data-i18n="search.point3">✓ Book before cut-off, instantly</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="deals-strip">
+      <h2 data-i18n="search.dealsTitle">Departing soon from China</h2>
+      <div class="deal-cards" id="dealCards"></div>
+    </div>
+  </section>
+
+  <!-- ===================== RESULTS ===================== -->
+  <section class="view hidden" id="view-results">
+    <div class="results-summary-band">
+      <div class="results-summary-inner">
+        <span id="resultsSummary"></span>
+        <button class="edit-search" data-goto="search" data-i18n="results.edit">Edit search</button>
+      </div>
+    </div>
+
+    <div class="results-layout">
+      <aside class="filter-rail">
+        <h3 data-i18n="filters.title">Filter</h3>
+        <div class="filter-group">
+          <h4 data-i18n="filters.mode">Mode</h4>
+          <label class="fcheck"><input type="checkbox" id="f_sea" checked> <span data-i18n="mode.sea">Sea LCL</span></label>
+          <label class="fcheck"><input type="checkbox" id="f_air" checked> <span data-i18n="mode.air">Air freight</span></label>
+        </div>
+        <div class="filter-group">
+          <h4 data-i18n="filters.type">Capacity type</h4>
+          <label class="fcheck"><input type="checkbox" id="f_guaranteed" checked> <span data-i18n="filters.guaranteed">Guaranteed</span></label>
+          <label class="fcheck"><input type="checkbox" id="f_standbyOnly" checked> <span data-i18n="filters.standby">Standby (discounted)</span></label>
+        </div>
+        <div class="filter-group">
+          <h4 data-i18n="filters.service">Service</h4>
+          <label class="fcheck"><input type="checkbox" id="f_svc_port" checked> <span data-i18n="service.p2p">Port to port</span></label>
+          <label class="fcheck"><input type="checkbox" id="f_svc_door" checked> <span data-i18n="service.doorAvailable">Door delivery</span></label>
+        </div>
+        <div class="filter-note" data-i18n="filters.note">Standby space may be rolled to the next departure or refunded if regular bookings fill it first.</div>
+      </aside>
+
+      <div class="results-main">
+        <div class="sort-tabs" id="sortTabs">
+          <button class="sort-tab active" data-sort="best">
+            <span class="st-label" data-i18n="sort.best">Best</span>
+            <span class="st-value" id="st_best"></span>
+          </button>
+          <button class="sort-tab" data-sort="cheapest">
+            <span class="st-label" data-i18n="sort.cheapest">Cheapest</span>
+            <span class="st-value" id="st_cheapest"></span>
+          </button>
+          <button class="sort-tab" data-sort="fastest">
+            <span class="st-label" data-i18n="sort.fastest">Fastest</span>
+            <span class="st-value" id="st_fastest"></span>
+          </button>
+        </div>
+
+        <div id="resultsList"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BOOKING DETAIL ===================== -->
+  <section class="view hidden" id="view-detail">
+    <div class="detail-wrap">
+      <button class="back-link" data-goto="results" data-i18n="detail.back">← Back to results</button>
+      <div id="detailContent"></div>
+    </div>
+  </section>
+
+  <!-- ===================== CONFIRMATION ===================== -->
+  <section class="view hidden" id="view-confirm">
+    <div class="confirm-box">
+      <div class="confirm-check">✓</div>
+      <h2 data-i18n="confirm.title">Space reserved</h2>
+      <p id="confirmDetail"></p>
+      <p class="confirm-note" data-i18n="confirm.note">In the real product the forwarder is notified instantly and confirms in their dashboard — no email chains.</p>
+      <button class="btn btn-primary" data-goto="results" data-i18n="confirm.cta">Back to results</button>
+    </div>
+  </section>
+
+  <!-- ===================== LIST CAPACITY (FORWARDER) ===================== -->
+  <section class="view hidden" id="view-list">
+    <div class="narrow-wrap">
+      <div class="view-header">
+        <h2 data-i18n="list.title">List your capacity</h2>
+        <p data-i18n="list.sub">The forwarder side — putting spare space in front of UK buyers takes about two minutes.</p>
+      </div>
+
+      <form class="listing-form" id="listingForm">
+        <div class="form-grid">
+          <label class="field">
+            <span data-i18n="list.field.type">Freight type</span>
+            <select id="f_type">
+              <option value="sea" data-i18n="mode.sea">Sea LCL</option>
+              <option value="air" data-i18n="mode.air">Air freight</option>
+            </select>
+          </label>
+          <label class="field">
+            <span data-i18n="search.from">From</span>
+            <select id="f_origin">
+              <option data-i18n="city.shenzhen">Shenzhen</option>
+              <option data-i18n="city.guangzhou">Guangzhou</option>
+              <option data-i18n="city.ningbo">Ningbo</option>
+            </select>
+          </label>
+          <label class="field">
+            <span data-i18n="search.to">To</span>
+            <select id="f_dest">
+              <option data-i18n="city.felixstowe">Felixstowe (Sea)</option>
+              <option data-i18n="city.heathrow">Heathrow (Air)</option>
+            </select>
+          </label>
+          <label class="field">
+            <span data-i18n="list.field.date">Departure date</span>
+            <input type="date" id="f_date">
+          </label>
+          <label class="field">
+            <span data-i18n="list.field.capacity">Remaining space</span>
+            <input type="text" id="f_capacity" placeholder="e.g. 6 CBM / 400 kg">
+          </label>
+          <label class="field">
+            <span data-i18n="list.field.price">Price</span>
+            <input type="text" id="f_price" placeholder="e.g. $55/CBM">
+          </label>
+          <label class="field">
+            <span data-i18n="list.field.cutoff">Cut-off before departure</span>
+            <input type="text" id="f_cutoff" placeholder="e.g. 2 days">
+          </label>
+          <label class="field">
+            <span data-i18n="service.label">Service</span>
+            <select id="f_service">
+              <option value="p2p" data-i18n="service.p2p">Port to port</option>
+              <option value="p2d" data-i18n="service.p2d">Port to door</option>
+              <option value="d2d" data-i18n="service.d2d">Door to door</option>
+            </select>
+          </label>
+          <label class="field field-checkbox">
+            <input type="checkbox" id="f_standby">
+            <span data-i18n="list.field.standby">List as Standby Capacity (discounted, may roll or refund)</span>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary" data-i18n="list.submit">Publish listing</button>
+      </form>
+
+      <div id="justPublished" class="hidden"></div>
+    </div>
+  </section>
+
+  <!-- ===================== REQUEST QUOTES (BUYER RFQ) ===================== -->
+  <section class="view hidden" id="view-quote">
+    <div class="narrow-wrap">
+      <div class="view-header">
+        <h2 data-i18n="quote.title">Get bespoke quotes for your load</h2>
+        <p data-i18n="quote.sub">The buyer side — post your load details once and forwarders come back with competitive quotes, instead of you chasing them one by one.</p>
+      </div>
+
+      <form class="listing-form" id="quoteForm">
+        <div class="form-grid">
+          <label class="field">
+            <span data-i18n="search.from">From</span>
+            <select id="q_origin">
+              <option data-i18n="city.shenzhen">Shenzhen</option>
+              <option data-i18n="city.guangzhou">Guangzhou</option>
+              <option data-i18n="city.ningbo">Ningbo</option>
+            </select>
+          </label>
+          <label class="field">
+            <span data-i18n="search.to">To</span>
+            <select id="q_dest">
+              <option data-i18n="city.felixstowe">Felixstowe (Sea)</option>
+              <option data-i18n="city.heathrow">Heathrow (Air)</option>
+            </select>
+          </label>
+          <label class="field">
+            <span data-i18n="search.mode">Mode</span>
+            <select id="q_mode">
+              <option value="any" data-i18n="search.anyMode">Sea & Air</option>
+              <option value="sea" data-i18n="mode.sea">Sea LCL</option>
+              <option value="air" data-i18n="mode.air">Air freight</option>
+            </select>
+          </label>
+          <label class="field">
+            <span data-i18n="quote.field.ready">Cargo ready date</span>
+            <input type="date" id="q_ready">
+          </label>
+          <label class="field">
+            <span data-i18n="service.label">Service</span>
+            <select id="q_service">
+              <option value="p2p" data-i18n="service.p2p">Port to port</option>
+              <option value="p2d" data-i18n="service.p2d">Port to door</option>
+              <option value="d2d" data-i18n="service.d2d">Door to door</option>
+            </select>
+          </label>
+          <label class="field">
+            <span data-i18n="quote.field.postcode">UK delivery postcode (door services)</span>
+            <input type="text" id="q_postcode" placeholder="e.g. B1 1AA">
+          </label>
+          <label class="field">
+            <span data-i18n="quote.field.volume">Volume (CBM)</span>
+            <input type="text" id="q_volume" placeholder="e.g. 4.5">
+          </label>
+          <label class="field">
+            <span data-i18n="quote.field.weight">Weight (kg)</span>
+            <input type="text" id="q_weight" placeholder="e.g. 850">
+          </label>
+          <div class="calc-block" style="grid-column: 1 / -1;">
+            <button type="button" class="calc-toggle" id="calcToggle">📐 <span data-i18n="calc.toggle">CBM calculator</span></button>
+            <div class="calc-panel hidden" id="calcPanel">
+              <div class="calc-grid">
+                <label class="field"><span data-i18n="calc.len">Length (cm)</span><input type="text" id="c_len" placeholder="60"></label>
+                <label class="field"><span data-i18n="calc.wid">Width (cm)</span><input type="text" id="c_wid" placeholder="40"></label>
+                <label class="field"><span data-i18n="calc.hei">Height (cm)</span><input type="text" id="c_hei" placeholder="50"></label>
+                <label class="field"><span data-i18n="calc.qty">Cartons</span><input type="text" id="c_qty" placeholder="12"></label>
+              </div>
+              <div class="calc-result">
+                <div><span class="meta-label" data-i18n="calc.total">Total volume</span><span class="meta-value" id="calcCbm">—</span></div>
+                <div><span class="meta-label" data-i18n="calc.volWeight">Volumetric weight (air)</span><span class="meta-value" id="calcVol">—</span></div>
+                <button type="button" class="btn btn-primary calc-use" id="calcUse" data-i18n="calc.use">Use in form</button>
+              </div>
+              <p class="calc-hint" data-i18n="calc.hint">1 CBM = 100 × 100 × 100 cm. Air freight charges whichever is greater: actual weight or volumetric weight (L×W×H ÷ 6000 per carton).</p>
+            </div>
+          </div>
+          <label class="field" style="grid-column: 1 / -1;">
+            <span data-i18n="quote.field.cargo">Cargo description</span>
+            <input type="text" id="q_cargo" placeholder="e.g. 12 cartons of LED lighting, palletised, non-hazardous">
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary" data-i18n="quote.submit">Post load & get quotes</button>
+      </form>
+
+      <div id="quoteResult" class="hidden"></div>
+    </div>
+  </section>
+
+  <!-- ===================== STANDBY EXPLAINER ===================== -->
+  <section class="view hidden" id="view-standby">
+    <div class="narrow-wrap">
+      <div class="view-header">
+        <h2 data-i18n="standby.title">How Standby Capacity works</h2>
+        <p data-i18n="standby.sub">Monetise the uncertainty — not just guaranteed empty space.</p>
+      </div>
+      <div class="standby-steps">
+        <div class="standby-step">
+          <div class="standby-num">1</div>
+          <h3 data-i18n="standby.step1.title">Your container is 80% full</h3>
+          <p data-i18n="standby.step1.body">You expect ~15% will probably remain empty at departure — but you're not certain.</p>
+        </div>
+        <div class="standby-step">
+          <div class="standby-num">2</div>
+          <h3 data-i18n="standby.step2.title">List it as Standby, discounted</h3>
+          <p data-i18n="standby.step2.body">A buyer books that uncertain space cheaply, knowing it isn't guaranteed.</p>
+        </div>
+        <div class="standby-step">
+          <div class="standby-num">3a</div>
+          <h3 data-i18n="standby.step3a.title">If it ships — everyone wins</h3>
+          <p data-i18n="standby.step3a.body">You sold space you thought would go empty. The buyer got a discount.</p>
+        </div>
+        <div class="standby-step">
+          <div class="standby-num">3b</div>
+          <h3 data-i18n="standby.step3b.title">If regular bookings fill it</h3>
+          <p data-i18n="standby.step3b.body">The booking rolls to the next departure automatically, or refunds. No awkward conversation.</p>
+        </div>
+      </div>
+      <div class="standby-cta">
+        <button class="btn btn-primary" data-goto="results" data-i18n="standby.cta">See standby space in results</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p data-i18n="footer.note">Prototype for discussion purposes — no real bookings, no real capacity listed.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
