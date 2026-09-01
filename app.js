@@ -172,6 +172,23 @@ const translations = {
     'auth.checkEmail': 'Account created — check your inbox and click the confirmation link, then sign in.',
     'auth.google': 'Continue with Google',
     'auth.or': 'or',
+
+    'acct.title': 'Your account',
+    'acct.sub': 'Manage your profile, security and preferences.',
+    'acct.profile': 'Profile',
+    'acct.save': 'Save profile',
+    'acct.saved': 'Profile saved.',
+    'acct.security': 'Security',
+    'acct.newPassword': 'New password',
+    'acct.updatePassword': 'Update password',
+    'acct.pwUpdated': 'Password updated.',
+    'acct.googleNote': 'You signed in with Google — your password is managed by your Google account.',
+    'acct.prefs': 'Preferences',
+    'acct.currency': 'Currency',
+    'acct.language': 'Language',
+    'acct.activity': 'Bookings & quotes',
+    'acct.activityEmpty': 'Nothing here yet — your reservations and accepted quotes will appear here once the marketplace goes live.',
+    'acct.member': 'Member since',
     'auth.welcome': 'Signed in',
     'auth.working': 'Working…',
 
@@ -351,6 +368,23 @@ const translations = {
     'auth.checkEmail': '账户已创建——请查收邮件并点击确认链接，然后登录。',
     'auth.google': '使用 Google 登录',
     'auth.or': '或',
+
+    'acct.title': '我的账户',
+    'acct.sub': '管理您的个人资料、安全设置和偏好。',
+    'acct.profile': '个人资料',
+    'acct.save': '保存资料',
+    'acct.saved': '资料已保存。',
+    'acct.security': '安全',
+    'acct.newPassword': '新密码',
+    'acct.updatePassword': '更新密码',
+    'acct.pwUpdated': '密码已更新。',
+    'acct.googleNote': '您通过 Google 登录——密码由您的 Google 账户管理。',
+    'acct.prefs': '偏好设置',
+    'acct.currency': '货币',
+    'acct.language': '语言',
+    'acct.activity': '订舱与报价',
+    'acct.activityEmpty': '暂无记录——市场正式上线后，您的预订和已接受的报价将显示在此处。',
+    'acct.member': '注册时间',
     'auth.welcome': '已登录',
     'auth.working': '处理中…',
 
@@ -374,6 +408,27 @@ const currencies = [
 ];
 let currencyIdx = 0;
 function cur() { return currencies[currencyIdx]; }
+function setCurrency(code) {
+  const idx = currencies.findIndex(c => c.code === code);
+  if (idx >= 0) currencyIdx = idx;
+  try { localStorage.setItem('byst_currency', cur().code); } catch (e) {}
+  document.getElementById('currencyToggle').textContent = cur().label;
+  rerenderCurrentView();
+}
+function setLang(l) {
+  lang = l === 'zh' ? 'zh' : 'en';
+  try { localStorage.setItem('byst_lang', lang); } catch (e) {}
+  applyTranslations();
+}
+function rerenderCurrentView() {
+  const current = [...document.querySelectorAll('.view')].find(v => !v.classList.contains('hidden'));
+  if (!current) return;
+  if (current.id === 'view-results') renderResults();
+  if (current.id === 'view-detail') renderDetail();
+  if (current.id === 'view-search') renderDeals();
+  if (current.id === 'view-quote') renderQuotes();
+  if (current.id === 'view-account') renderAccount();
+}
 function money(usd) {
   const v = usd * cur().rate;
   const num = v < 10 ? (Math.round(v * 100) / 100).toFixed(2).replace(/\.?0+$/, '') : Math.round(v);
@@ -800,9 +855,8 @@ function renderAuthArea() {
   if (!area) return;
   if (currentUser) {
     area.innerHTML = `
-      <span class="auth-user" title="${currentUser.email}">${userLabel()}</span>
-      <button class="auth-btn" id="signOutBtn">${t('auth.signOut')}</button>`;
-    document.getElementById('signOutBtn').addEventListener('click', () => { if (sb) sb.auth.signOut(); });
+      <button class="auth-btn auth-user-btn" id="accountBtn" title="${currentUser.email}">${icoSvg('user')} <span class="auth-user">${userLabel()}</span></button>`;
+    document.getElementById('accountBtn').addEventListener('click', () => showView('account'));
   } else {
     area.innerHTML = `
       <button class="auth-btn" id="signInBtn">${t('auth.signIn')}</button>
@@ -859,6 +913,10 @@ function wireAuth() {
   sb.auth.onAuthStateChange((_event, session) => {
     currentUser = session ? session.user : null;
     renderAuthArea();
+    if (!currentUser) {
+      const acct = document.getElementById('view-account');
+      if (acct && !acct.classList.contains('hidden')) showView('search');
+    }
   });
 
   document.getElementById('googleBtn').addEventListener('click', async () => {
@@ -921,6 +979,101 @@ function wireAuth() {
   });
 }
 
+/* ============ Account page ============ */
+
+function segVal(id) {
+  const b = document.querySelector('#' + id + ' .seg-opt.active');
+  return b ? b.dataset.val : null;
+}
+function setSeg(id, val) {
+  document.querySelectorAll('#' + id + ' .seg-opt').forEach(b => b.classList.toggle('active', b.dataset.val === val));
+}
+function noteMsg(id, text, isError) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.classList.remove('hidden');
+  el.classList.toggle('auth-msg-error', !!isError);
+}
+
+async function renderAccount() {
+  if (!currentUser) { showView('search'); requireAuth(() => showView('account')); return; }
+  const meta = currentUser.user_metadata || {};
+
+  const avatarEl = document.getElementById('acctAvatar');
+  if (meta.avatar_url) {
+    avatarEl.innerHTML = `<img src="${meta.avatar_url}" alt="" referrerpolicy="no-referrer">`;
+  } else {
+    avatarEl.textContent = (userLabel() || '?').trim().charAt(0).toUpperCase();
+  }
+  document.getElementById('acctName').textContent = userLabel();
+  document.getElementById('acctEmail').textContent = currentUser.email || '';
+  const since = new Date(currentUser.created_at);
+  document.getElementById('acctSince').textContent =
+    `${t('acct.member')}: ${since.toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'en-GB', { year: 'numeric', month: 'short' })}`;
+
+  const provider = (currentUser.app_metadata && currentUser.app_metadata.provider) || 'email';
+  const isGoogle = provider === 'google';
+  document.getElementById('acctProvider').textContent = isGoogle ? 'Google' : t('auth.email');
+  document.getElementById('googleNote').classList.toggle('hidden', !isGoogle);
+  document.getElementById('pwFields').classList.toggle('hidden', isGoogle);
+
+  document.getElementById('p_name').value = meta.full_name || '';
+  document.getElementById('p_company').value = meta.company || '';
+  setSeg('p_type', meta.account_type === 'forwarder' ? 'forwarder' : 'importer');
+  document.getElementById('pref_currency').value = cur().code;
+  document.getElementById('pref_lang').value = lang;
+
+  if (!sb) return;
+  const { data } = await sb.from('byst_profiles')
+    .select('full_name, company, account_type')
+    .eq('id', currentUser.id)
+    .maybeSingle();
+  if (data) {
+    if (data.full_name) document.getElementById('p_name').value = data.full_name;
+    if (data.company) document.getElementById('p_company').value = data.company;
+    if (data.account_type) setSeg('p_type', data.account_type);
+  }
+}
+
+function wireAccount() {
+  document.getElementById('profileForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!sb || !currentUser) return;
+    const updates = {
+      full_name: document.getElementById('p_name').value.trim(),
+      company: document.getElementById('p_company').value.trim(),
+      account_type: segVal('p_type') || 'importer',
+    };
+    const { error } = await sb.from('byst_profiles').upsert({ id: currentUser.id, ...updates });
+    if (error) { noteMsg('profileMsg', error.message, true); return; }
+    const { data, error: err2 } = await sb.auth.updateUser({ data: updates });
+    if (err2) { noteMsg('profileMsg', err2.message, true); return; }
+    if (data && data.user) currentUser = data.user;
+    noteMsg('profileMsg', t('acct.saved'), false);
+    renderAuthArea();
+    document.getElementById('acctName').textContent = userLabel();
+  });
+
+  document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!sb || !currentUser) return;
+    const pw = document.getElementById('pw_new').value;
+    if (pw.length < 8) { noteMsg('pwMsg', t('auth.password') + ': 8+', true); return; }
+    const { error } = await sb.auth.updateUser({ password: pw });
+    if (error) { noteMsg('pwMsg', error.message, true); return; }
+    document.getElementById('pw_new').value = '';
+    noteMsg('pwMsg', t('acct.pwUpdated'), false);
+  });
+
+  document.getElementById('acctSignOut').addEventListener('click', async () => {
+    if (sb) await sb.auth.signOut();
+    showView('search');
+  });
+
+  document.getElementById('pref_currency').addEventListener('change', (e) => setCurrency(e.target.value));
+  document.getElementById('pref_lang').addEventListener('change', (e) => setLang(e.target.value));
+}
+
 /* ============ Views ============ */
 
 function showView(view) {
@@ -934,6 +1087,7 @@ function showView(view) {
   if (view === 'results') renderResults();
   if (view === 'detail') renderDetail();
   if (view === 'search') renderDeals();
+  if (view === 'account') renderAccount();
   window.scrollTo(0, 0);
 }
 
@@ -945,13 +1099,7 @@ function applyTranslations() {
   document.getElementById('langToggle').textContent = lang === 'en' ? '中文' : 'EN';
   renderAuthArea();
   document.documentElement.lang = lang === 'en' ? 'en' : 'zh-CN';
-  const current = [...document.querySelectorAll('.view')].find(v => !v.classList.contains('hidden'));
-  if (current) {
-    if (current.id === 'view-results') renderResults();
-    if (current.id === 'view-detail') renderDetail();
-    if (current.id === 'view-search') renderDeals();
-    if (current.id === 'view-quote') renderQuotes();
-  }
+  rerenderCurrentView();
 }
 
 /* ============ Wiring ============ */
@@ -959,18 +1107,10 @@ function applyTranslations() {
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.nav-link').forEach(btn => btn.addEventListener('click', () => showView(btn.dataset.view)));
   document.querySelectorAll('[data-goto]').forEach(btn => btn.addEventListener('click', () => showView(btn.dataset.goto)));
-  document.getElementById('langToggle').addEventListener('click', () => { lang = lang === 'en' ? 'zh' : 'en'; applyTranslations(); });
+  document.getElementById('langToggle').addEventListener('click', () => setLang(lang === 'en' ? 'zh' : 'en'));
 
   document.getElementById('currencyToggle').addEventListener('click', () => {
-    currencyIdx = (currencyIdx + 1) % currencies.length;
-    document.getElementById('currencyToggle').textContent = cur().label;
-    const current = [...document.querySelectorAll('.view')].find(v => !v.classList.contains('hidden'));
-    if (current) {
-      if (current.id === 'view-results') renderResults();
-      if (current.id === 'view-detail') renderDetail();
-      if (current.id === 'view-search') renderDeals();
-      if (current.id === 'view-quote') renderQuotes();
-    }
+    setCurrency(currencies[(currencyIdx + 1) % currencies.length].code);
   });
 
   document.getElementById('calcToggle').addEventListener('click', () => {
@@ -1092,7 +1232,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  try {
+    const pc = localStorage.getItem('byst_currency');
+    const i = currencies.findIndex(c => c.code === pc);
+    if (i >= 0) currencyIdx = i;
+    if (localStorage.getItem('byst_lang') === 'zh') lang = 'zh';
+  } catch (e) {}
+  document.getElementById('currencyToggle').textContent = cur().label;
+
   wireAuth();
+  wireAccount();
   applyTranslations();
   showView('search');
 });

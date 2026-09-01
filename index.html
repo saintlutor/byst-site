@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=6">
+<link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
 
@@ -21,6 +21,7 @@
   <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
   <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
   <symbol id="i-truck" viewBox="0 0 24 24"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
 </svg>
 
 <header class="topbar">
@@ -465,6 +466,93 @@
     </div>
   </section>
 
+  <!-- ===================== ACCOUNT ===================== -->
+  <section class="view hidden" id="view-account">
+    <div class="narrow-wrap">
+      <div class="view-header">
+        <h2 data-i18n="acct.title">Your account</h2>
+        <p data-i18n="acct.sub">Manage your profile, security and preferences.</p>
+      </div>
+
+      <div class="acct-card">
+        <div class="acct-avatar" id="acctAvatar"></div>
+        <div class="acct-who">
+          <div class="acct-name" id="acctName">—</div>
+          <div class="acct-email" id="acctEmail">—</div>
+          <div class="acct-meta" id="acctSince"></div>
+        </div>
+        <span class="acct-provider" id="acctProvider"></span>
+      </div>
+
+      <form class="listing-form acct-form" id="profileForm">
+        <h3 data-i18n="acct.profile">Profile</h3>
+        <div class="form-grid">
+          <label class="field">
+            <span data-i18n="auth.fullName">Full name</span>
+            <input type="text" id="p_name" autocomplete="name">
+          </label>
+          <label class="field">
+            <span data-i18n="auth.company">Company (optional)</span>
+            <input type="text" id="p_company" autocomplete="organization">
+          </label>
+          <div class="field">
+            <span data-i18n="auth.accountType">I am a…</span>
+            <div class="seg-toggle" id="p_type">
+              <button type="button" class="seg-opt active" data-val="importer" data-i18n="auth.importer">Importer / buyer</button>
+              <button type="button" class="seg-opt" data-val="forwarder" data-i18n="auth.forwarder">Freight forwarder</button>
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" data-i18n="acct.save">Save profile</button>
+        <div class="auth-msg hidden" id="profileMsg"></div>
+      </form>
+
+      <form class="listing-form acct-form" id="passwordForm">
+        <h3 data-i18n="acct.security">Security</h3>
+        <p class="acct-hint hidden" id="googleNote" data-i18n="acct.googleNote">You signed in with Google — your password is managed by your Google account.</p>
+        <div id="pwFields">
+          <div class="form-grid">
+            <label class="field">
+              <span data-i18n="acct.newPassword">New password</span>
+              <input type="password" id="pw_new" minlength="8" autocomplete="new-password" placeholder="8+ characters">
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary" data-i18n="acct.updatePassword">Update password</button>
+        </div>
+        <div class="auth-msg hidden" id="pwMsg"></div>
+      </form>
+
+      <div class="listing-form acct-form">
+        <h3 data-i18n="acct.prefs">Preferences</h3>
+        <div class="form-grid">
+          <label class="field">
+            <span data-i18n="acct.currency">Currency</span>
+            <select id="pref_currency">
+              <option value="usd">$ USD</option>
+              <option value="gbp">£ GBP</option>
+              <option value="aud">A$ AUD</option>
+              <option value="cny">¥ CNY</option>
+            </select>
+          </label>
+          <label class="field">
+            <span data-i18n="acct.language">Language</span>
+            <select id="pref_lang">
+              <option value="en">English</option>
+              <option value="zh">中文</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="listing-form acct-form">
+        <h3 data-i18n="acct.activity">Bookings &amp; quotes</h3>
+        <p class="acct-empty" data-i18n="acct.activityEmpty">Nothing here yet — your reservations and accepted quotes will appear here once the marketplace goes live.</p>
+      </div>
+
+      <button class="btn acct-signout" id="acctSignOut" data-i18n="auth.signOut">Sign out</button>
+    </div>
+  </section>
+
 </main>
 
 <footer class="footer">
@@ -536,6 +624,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-<script src="app.js?v=6"></script>
+<script src="app.js?v=7"></script>
 </body>
 </html>

@@ -106,6 +106,37 @@ html { scroll-behavior: smooth; }
   color: #fff; font-size: 13px; font-weight: 600; max-width: 140px;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
+.auth-user-btn { display: flex; align-items: center; gap: 7px; }
+
+/* ---------- Account page ---------- */
+.acct-card {
+  background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 22px 24px; display: flex; align-items: center; gap: 16px; margin-bottom: 18px;
+}
+.acct-avatar {
+  width: 52px; height: 52px; border-radius: 50%; background: var(--blue); color: #fff;
+  font-size: 22px; font-weight: 800; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
+}
+.acct-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.acct-who { min-width: 0; flex: 1; }
+.acct-name { font-size: 17px; font-weight: 800; letter-spacing: -0.02em; }
+.acct-email { font-size: 13px; color: var(--ink-soft); font-weight: 500; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; }
+.acct-meta { font-size: 12px; color: var(--ink-faint); font-weight: 500; margin-top: 3px; }
+.acct-provider {
+  font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px;
+  background: #eef2f7; color: var(--navy); border: 1px solid #d5dde8; flex-shrink: 0;
+}
+.acct-form { margin-bottom: 18px; }
+.acct-form h3 { margin: 0 0 16px; font-size: 16px; font-weight: 800; letter-spacing: -0.02em; }
+.acct-hint { font-size: 13px; color: var(--ink-soft); margin: 0; line-height: 1.55; }
+.acct-empty { font-size: 13.5px; color: var(--ink-soft); margin: 0; line-height: 1.6; }
+.acct-signout {
+  background: #fff; color: #b91c1c; border: 1.5px solid #fecaca; width: 100%;
+}
+.acct-signout:hover { background: #fef2f2; }
+#pwFields .form-grid { margin-bottom: 18px; }
+.acct-form .auth-msg { margin-top: 12px; }
 
 .modal-overlay {
   position: fixed; inset: 0; z-index: 60;
