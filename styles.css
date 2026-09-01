@@ -54,7 +54,8 @@ button, input, select { font-family: inherit; font-size: inherit; }
 .flag-md { height: 16px; vertical-align: -2px; }
 .flag-lg { height: 15px; box-shadow: 0 0 0 1px rgba(255,255,255,.35); }
 .flag-net { height: 26px; border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
-.nav { display: flex; gap: 2px; flex: 1; overflow-x: auto; }
+.nav { display: flex; gap: 2px; flex: 1; overflow-x: auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
 .nav-link {
   background: transparent; border: none; color: rgba(255,255,255,.7);
   padding: 8px 14px; border-radius: 8px; font-size: 13.5px; font-weight: 500;
@@ -131,7 +132,7 @@ main#app { min-height: 72vh; }
   padding: 52px 24px 58px; overflow: hidden;
 }
 .hero-band-inner { max-width: 1140px; margin: 0 auto; position: relative; }
-.hero-art { position: absolute; right: -30px; top: -18px; width: 430px; pointer-events: none; opacity: .95; }
+.hero-art { position: absolute; right: -10px; top: -14px; width: 400px; pointer-events: none; opacity: .95; }
 .hero-art .arc { stroke-dasharray: 3 9; stroke-linecap: round; animation: arcFlow 14s linear infinite; }
 .hero-art .arc-delay { animation-delay: -7s; }
 .hero-art .float-a { animation: floatY 5s ease-in-out infinite; }
