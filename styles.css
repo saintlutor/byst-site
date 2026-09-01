@@ -77,7 +77,15 @@ html { scroll-behavior: smooth; }
 }
 .nav-link:hover { color: #fff; background: rgba(255,255,255,.1); }
 .nav-link.active { color: #fff; background: var(--blue); border-color: var(--blue); font-weight: 700; }
-.nav-ico { font-size: 12px; line-height: 1; filter: grayscale(1) brightness(2.4); }
+.nav-ico { width: 13px; height: 13px; }
+
+/* ---------- Line icons ---------- */
+.ico {
+  width: 13px; height: 13px; flex-shrink: 0;
+  fill: none; stroke: currentColor; stroke-width: 2;
+  stroke-linecap: round; stroke-linejoin: round;
+  vertical-align: -2px;
+}
 .lang-toggle {
   background: transparent; border: 1px solid rgba(255,255,255,.32); color: #fff;
   padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;
@@ -172,7 +180,7 @@ main#app { min-height: 72vh; }
   text-transform: uppercase; letter-spacing: .09em;
   display: flex; align-items: center; gap: 5px;
 }
-.sw-ico { font-size: 11px; filter: grayscale(1); opacity: .8; line-height: 1; }
+.sw-ico { width: 12px; height: 12px; }
 .sw-field select, .sw-field input {
   border: none; background: transparent; font-size: 15px; font-weight: 600;
   letter-spacing: -0.01em; color: var(--ink); padding: 3px 0; outline: none; width: 100%;
@@ -256,7 +264,11 @@ main#app { min-height: 72vh; }
 }
 .deal-card:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: var(--shadow-lift); }
 .deal-route { font-weight: 700; font-size: 15px; letter-spacing: -0.015em; margin-bottom: 3px; }
-.deal-mode { font-size: 12.5px; font-weight: 500; color: var(--ink-soft); margin-bottom: 14px; }
+.deal-mode {
+  font-size: 12.5px; font-weight: 500; color: var(--ink-soft); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
+}
+.deal-mode .ico { width: 12px; height: 12px; }
 .deal-bottom { display: flex; align-items: baseline; justify-content: space-between; }
 .deal-price { color: var(--green); font-weight: 800; font-size: 19px; letter-spacing: -0.02em; }
 .deal-price small { font-size: 11px; color: var(--ink-soft); font-weight: 500; letter-spacing: 0; }
@@ -325,7 +337,9 @@ main#app { min-height: 72vh; }
 .carrier-name { font-size: 13px; font-weight: 500; color: var(--ink-soft); letter-spacing: -0.005em; }
 .mode-pill {
   font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; letter-spacing: .03em;
+  display: inline-flex; align-items: center; gap: 5px;
 }
+.mode-pill .ico, .svc-pill .ico { width: 11px; height: 11px; }
 .mode-pill.sea { background: #dff3fb; color: #055a8c; }
 .mode-pill.air { background: #ece7fd; color: #5b3fc4; }
 .standby-badge {
@@ -335,6 +349,7 @@ main#app { min-height: 72vh; }
 .svc-pill {
   background: #e8f5ee; color: #14683c;
   font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; letter-spacing: .02em;
+  display: inline-flex; align-items: center; gap: 5px;
 }
 .inco-pill {
   font-size: 11px; font-weight: 700; padding: 2.5px 9px; border-radius: 999px;
@@ -364,7 +379,8 @@ main#app { min-height: 72vh; }
 .j-track { width: 100%; display: flex; align-items: center; gap: 6px; }
 .j-dot { width: 7px; height: 7px; border-radius: 50%; border: 2px solid #aab2bb; background: #fff; flex-shrink: 0; }
 .j-rule { flex: 1; height: 1.5px; background: #ccd2d9; border-radius: 2px; }
-.j-icon { font-size: 15px; line-height: 1; }
+.j-icon { display: flex; color: var(--ink-soft); }
+.j-icon .ico { width: 15px; height: 15px; }
 
 .leg-meta { display: flex; gap: 20px; margin-top: 16px; flex-wrap: wrap; }
 .leg-meta span { font-size: 12.5px; color: var(--ink-soft); font-weight: 400; }

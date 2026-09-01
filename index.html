@@ -11,6 +11,18 @@
 </head>
 <body>
 
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></symbol>
+  <symbol id="i-ship" viewBox="0 0 24 24"><path d="M2 14h20l-3 6H5l-3-6z"/><path d="M6 14v-4h12v4"/><path d="M9 10V6h6v4"/></symbol>
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05"/><path d="M12 22.08V12"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></symbol>
+</svg>
+
 <header class="topbar">
   <div class="topbar-inner">
     <button class="brand" data-goto="search">
@@ -19,11 +31,11 @@
       <span class="brand-sub">powered by byst</span>
     </button>
     <nav class="nav">
-      <button class="nav-link active" data-view="search"><span class="nav-ico">🔍</span><span data-i18n="nav.search">Search</span></button>
-      <button class="nav-link" data-view="results"><span class="nav-ico">🚢</span><span data-i18n="nav.results">Capacity</span></button>
-      <button class="nav-link" data-view="quote"><span class="nav-ico">💬</span><span data-i18n="nav.quote">Request quotes</span></button>
-      <button class="nav-link" data-view="list"><span class="nav-ico">📦</span><span data-i18n="nav.list">List your capacity</span></button>
-      <button class="nav-link" data-view="standby"><span class="nav-ico">⚡</span><span data-i18n="nav.standby">Standby</span></button>
+      <button class="nav-link active" data-view="search"><svg class="ico nav-ico"><use href="#i-search"/></svg><span data-i18n="nav.search">Search</span></button>
+      <button class="nav-link" data-view="results"><svg class="ico nav-ico"><use href="#i-ship"/></svg><span data-i18n="nav.results">Capacity</span></button>
+      <button class="nav-link" data-view="quote"><svg class="ico nav-ico"><use href="#i-chat"/></svg><span data-i18n="nav.quote">Request quotes</span></button>
+      <button class="nav-link" data-view="list"><svg class="ico nav-ico"><use href="#i-box"/></svg><span data-i18n="nav.list">List your capacity</span></button>
+      <button class="nav-link" data-view="standby"><svg class="ico nav-ico"><use href="#i-zap"/></svg><span data-i18n="nav.standby">Standby</span></button>
     </nav>
     <button class="lang-toggle" id="currencyToggle">$ USD</button>
     <button class="lang-toggle" id="langToggle">中文</button>
@@ -50,8 +62,8 @@
             <image href="https://flagcdn.com/w40/gb.png" x="394" y="36" width="24" height="16"/>
             <circle cx="402" cy="152" r="22" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.22)"/>
             <image href="https://flagcdn.com/w40/au.png" x="390" y="144" width="24" height="16"/>
-            <text class="float-a" x="215" y="34" font-size="23">✈️</text>
-            <text class="float-b" x="215" y="180" font-size="23">🚢</text>
+            <use class="float-a" href="#i-plane" x="207" y="12" width="22" height="22" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <use class="float-b" href="#i-ship" x="207" y="160" width="22" height="22" fill="none" stroke="rgba(255,255,255,.85)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <text x="398" y="14" font-size="11" fill="rgba(255,255,255,.65)" font-weight="700">UK</text>
             <text x="394" y="192" font-size="11" fill="rgba(255,255,255,.65)" font-weight="700">AU</text>
           </svg>
@@ -61,7 +73,7 @@
 
         <div class="search-widget" id="searchWidget">
           <div class="sw-field">
-            <label><span class="sw-ico">📍</span> <span data-i18n="search.from">From</span></label>
+            <label><svg class="ico sw-ico"><use href="#i-pin"/></svg> <span data-i18n="search.from">From</span></label>
             <select id="s_origin">
               <option value="any" data-i18n="search.any">All origins</option>
               <option value="sydney" data-i18n="origin.sydney">🇦🇺 Sydney</option>
@@ -73,7 +85,7 @@
           </div>
           <div class="sw-divider"></div>
           <div class="sw-field">
-            <label><span class="sw-ico">🎯</span> <span data-i18n="search.to">To</span></label>
+            <label><svg class="ico sw-ico"><use href="#i-target"/></svg> <span data-i18n="search.to">To</span></label>
             <select id="s_dest">
               <option value="any" data-i18n="search.anyDest">All destinations</option>
               <option value="felixstowe" data-i18n="city.felixstowe">Felixstowe (Sea)</option>
@@ -85,7 +97,7 @@
           </div>
           <div class="sw-divider"></div>
           <div class="sw-field">
-            <label><span class="sw-ico">🚢</span> <span data-i18n="search.mode">Mode</span></label>
+            <label><svg class="ico sw-ico"><use href="#i-plane"/></svg> <span data-i18n="search.mode">Mode</span></label>
             <select id="s_mode">
               <option value="any" data-i18n="search.anyMode">Sea & Air</option>
               <option value="sea" data-i18n="mode.sea">Sea LCL</option>
@@ -94,7 +106,7 @@
           </div>
           <div class="sw-divider"></div>
           <div class="sw-field">
-            <label><span class="sw-ico">📦</span> <span data-i18n="search.space">Space needed</span></label>
+            <label><svg class="ico sw-ico"><use href="#i-box"/></svg> <span data-i18n="search.space">Space needed</span></label>
             <input type="text" id="s_space" placeholder="2 CBM / 150 kg">
           </div>
           <button class="sw-btn" id="searchBtn" data-i18n="search.cta">Search space</button>

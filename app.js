@@ -432,8 +432,8 @@ let listings = [
   { id: 17, type: 'air', standby: false, origin: 'melbourne', dest: 'heathrow',   forwarder: forwarders[8],  date: '2026-09-05', transitDays: 2,  cutoff: { v: 18, u: 'hours' }, capacity: '150', capUnit: 'kg',  price: 6.20, wasPrice: null, priceUnit: 'usd_kg', service: 'p2p', doorFee: null },
 ];
 
-/* Delivery terms: door-to-door listings are sold DDP, the rest DAP */
-listings.forEach(l => { if (!l.incoterm) l.incoterm = l.service === 'd2d' ? 'ddp' : 'dap'; });
+/* Delivery terms: ~90% of listed capacity is sold DDP */
+listings.forEach(l => { if (!l.incoterm) l.incoterm = (l.id === 8 || l.id === 13) ? 'dap' : 'ddp'; });
 
 let nextId = listings.length + 1;
 let activeSort = 'best';
@@ -455,6 +455,10 @@ function flagImg(key, cls) {
   if (!c) return '';
   return `<img class="flag${cls ? ' ' + cls : ''}" src="https://flagcdn.com/w20/${c}.png" srcset="https://flagcdn.com/w40/${c}.png 2x" alt="${c.toUpperCase()}">`;
 }
+function icoSvg(name, cls) {
+  return `<svg class="ico${cls ? ' ' + cls : ''}" aria-hidden="true"><use href="#i-${name}"></use></svg>`;
+}
+function modeIco(type, cls) { return icoSvg(type === 'sea' ? 'ship' : 'plane', cls); }
 function u(key) { return t('unit_' + key); }
 
 function addDays(dateStr, days) {
@@ -541,14 +545,14 @@ function isComingSoon(l) { return cityCountry[l.origin] === 'cn'; }
 
 function renderResultRow(l) {
   const arrive = addDays(l.date, l.transitDays);
-  const icon = l.type === 'sea' ? '🚢' : '✈️';
+  const icon = modeIco(l.type);
   return `
   <div class="result-row" data-id="${l.id}">
     <div class="leg-main">
       <div class="leg-head">
         <span class="mode-pill ${l.type}">${icon} ${t('mode.' + l.type)}</span>
         <span class="carrier-name">${fwd(l.forwarder)}</span>
-        ${l.service !== 'p2p' ? `<span class="svc-pill">🚚 ${t('service.' + l.service)}</span>` : ''}
+        ${l.service !== 'p2p' ? `<span class="svc-pill">${icoSvg('truck')} ${t('service.' + l.service)}</span>` : ''}
         <span class="inco-pill inco-${l.incoterm}" title="${t('incoterm.' + l.incoterm + '.full')}">${l.incoterm.toUpperCase()}</span>
         ${l.standby ? `<span class="standby-badge">★ ${t('standby')}</span>` : ''}
         ${isComingSoon(l) ? `<span class="soon-badge">${t('soon.badge')}</span>` : ''}
@@ -624,7 +628,7 @@ function renderDeals() {
   el.innerHTML = deals.map(l => `
     <div class="deal-card" data-id="${l.id}">
       <div class="deal-route">${flagImg(l.origin)} ${city(l.origin)} → ${flagImg(l.dest)} ${city(l.dest)}</div>
-      <div class="deal-mode">${l.type === 'sea' ? '🚢' : '✈️'} ${t('mode.' + l.type)}${l.standby ? ` · ★ ${t('standby')}` : ''}${isComingSoon(l) ? ` <span class="soon-badge">${t('soon.badge')}</span>` : ''}</div>
+      <div class="deal-mode">${modeIco(l.type)} ${t('mode.' + l.type)}${l.standby ? ` · ★ ${t('standby')}` : ''}${isComingSoon(l) ? ` <span class="soon-badge">${t('soon.badge')}</span>` : ''}</div>
       <div class="deal-bottom">
         <span class="deal-price">${priceLabel(l)}<small>${u(l.priceUnit)}</small></span>
         <span class="deal-date">${shortDate(l.date)}</span>
@@ -643,7 +647,7 @@ function renderDetail() {
   const container = document.getElementById('detailContent');
   if (!l) { container.innerHTML = ''; return; }
   const arrive = addDays(l.date, l.transitDays);
-  const icon = l.type === 'sea' ? '🚢' : '✈️';
+  const icon = modeIco(l.type);
   container.innerHTML = `
   <div class="detail-card">
     <span class="mode-pill ${l.type}">${icon} ${t('mode.' + l.type)}</span>
@@ -742,9 +746,9 @@ function renderQuotes() {
       <div class="result-row quote-row" data-qi="${i}">
         <div class="leg-main">
           <div class="leg-head">
-            <span class="mode-pill ${q.type}">${q.type === 'sea' ? '🚢' : '✈️'} ${t('mode.' + q.type)}</span>
+            <span class="mode-pill ${q.type}">${modeIco(q.type)} ${t('mode.' + q.type)}</span>
             <span class="carrier-name">${fwd(q.forwarder)}</span>
-            ${q.service !== 'p2p' ? `<span class="svc-pill">🚚 ${t('service.' + q.service)}</span>` : ''}
+            ${q.service !== 'p2p' ? `<span class="svc-pill">${icoSvg('truck')} ${t('service.' + q.service)}</span>` : ''}
             <span class="inco-pill inco-${q.incoterm}" title="${t('incoterm.' + q.incoterm + '.full')}">${q.incoterm.toUpperCase()}</span>
             ${total(q) === cheapestTotal ? `<span class="standby-badge">★ ${t('sort.cheapest')}</span>` : ''}
           </div>
