@@ -547,7 +547,7 @@ function renderResults() {
   }
 
   const o = searchFilters.origin === 'any' ? t('search.any') : city(searchFilters.origin);
-  const d = searchFilters.dest === 'any' ? t('search.anyUK') : city(searchFilters.dest);
+  const d = searchFilters.dest === 'any' ? t('search.anyDest') : city(searchFilters.dest);
   document.getElementById('resultsSummary').textContent = `${o} → ${d} · ${items.length} ${t('results.summary')}`;
 
   const all = filteredAllForTabs();
