@@ -170,6 +170,8 @@ const translations = {
     'auth.createAccount': 'Create account',
     'auth.gateNote': 'Sign in or create a free account to continue.',
     'auth.checkEmail': 'Account created — check your inbox and click the confirmation link, then sign in.',
+    'auth.google': 'Continue with Google',
+    'auth.or': 'or',
     'auth.welcome': 'Signed in',
     'auth.working': 'Working…',
 
@@ -347,6 +349,8 @@ const translations = {
     'auth.createAccount': '创建账户',
     'auth.gateNote': '登录或免费注册后继续。',
     'auth.checkEmail': '账户已创建——请查收邮件并点击确认链接，然后登录。',
+    'auth.google': '使用 Google 登录',
+    'auth.or': '或',
     'auth.welcome': '已登录',
     'auth.working': '处理中…',
 
@@ -855,6 +859,15 @@ function wireAuth() {
   sb.auth.onAuthStateChange((_event, session) => {
     currentUser = session ? session.user : null;
     renderAuthArea();
+  });
+
+  document.getElementById('googleBtn').addEventListener('click', async () => {
+    showAuthMsg(t('auth.working'), false);
+    const { error } = await sb.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: 'https://byst.uk/' },
+    });
+    if (error) showAuthMsg(error.message, true);
   });
 
   document.getElementById('authClose').addEventListener('click', closeAuthModal);
