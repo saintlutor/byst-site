@@ -130,6 +130,14 @@ const translations = {
     'footer.tagline': 'The freight capacity marketplace — China → UK & Australia.',
     'footer.contact': 'Contact',
 
+    'how.title': 'How it works',
+    'how.1.t': 'Search a lane',
+    'how.1.b': 'Pick origin, destination and mode — see remaining space and rates for every departure instantly.',
+    'how.2.t': 'Compare departures',
+    'how.2.b': 'Sort by best, cheapest or fastest. Standby space saves up to 40% when your dates are flexible.',
+    'how.3.t': 'Reserve in one click',
+    'how.3.b': 'Create a free account and hold space before cut-off. The forwarder confirms — no email chains.',
+
     'net.au.title': 'Australia network',
     'net.au.body': 'Destination handling and door delivery run through our established Australian partner network.',
     'net.cn.title': 'China network',
@@ -289,6 +297,14 @@ const translations = {
 
     'footer.tagline': '货运舱位交易平台——中国 → 英国和澳大利亚。',
     'footer.contact': '联系我们',
+
+    'how.title': '如何使用',
+    'how.1.t': '搜索航线',
+    'how.1.b': '选择起运地、目的地和运输方式——即时查看每个班期的剩余舱位和价格。',
+    'how.2.t': '比较班期',
+    'how.2.b': '按推荐、最便宜或最快排序。日期灵活时，候补舱位最多可节省40%。',
+    'how.3.t': '一键预订',
+    'how.3.b': '免费注册后在截关前锁定舱位，货代在线确认——无需邮件往返。',
 
     'net.au.title': '澳大利亚网络',
     'net.au.body': '目的地操作与送货上门服务由我们成熟的澳大利亚合作伙伴网络提供。',

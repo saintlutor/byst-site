@@ -13,8 +13,9 @@
   --amber: #b45309;
   --amber-bg: #fff7e6;
   --amber-line: #fcd996;
-  --radius: 12px;
-  --shadow: 0 1px 3px rgba(17,24,39,.07), 0 4px 16px rgba(17,24,39,.06);
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(17,24,39,.05), 0 8px 24px rgba(17,24,39,.07);
+  --shadow-lift: 0 4px 10px rgba(17,24,39,.08), 0 16px 36px rgba(17,24,39,.12);
 
   --font: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
 }
@@ -32,6 +33,18 @@ html, body {
   text-rendering: optimizeLegibility;
 }
 button, input, select { font-family: inherit; font-size: inherit; }
+html { scroll-behavior: smooth; }
+::selection { background: #cfe3fb; }
+
+/* Views fade in on switch */
+.view { animation: viewIn .28s ease both; }
+@keyframes viewIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .view, .hero-art .arc, .hero-art .float-a, .hero-art .float-b { animation: none; }
+}
 
 /* Numbers align cleanly in prices, dates, data */
 .pc-price, .pc-was, .j-date, .deal-price, .meta-value, .st-value, .leg-meta b {
@@ -90,9 +103,10 @@ button, input, select { font-family: inherit; font-size: inherit; }
   display: flex; align-items: center; justify-content: center; padding: 20px;
 }
 .modal-card {
-  background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
+  background: #fff; border-radius: 16px; box-shadow: var(--shadow-lift);
   width: 100%; max-width: 420px; padding: 26px; position: relative;
   max-height: 90vh; overflow-y: auto;
+  animation: viewIn .22s ease both;
 }
 .modal-close {
   position: absolute; top: 10px; right: 14px; background: none; border: none;
@@ -124,7 +138,7 @@ main#app { min-height: 72vh; }
 .hidden { display: none !important; }
 
 /* ---------- Hero / search band ---------- */
-.hero-band { background: var(--navy); padding: 52px 24px 58px; overflow: hidden; }
+.hero-band { background: var(--navy); padding: 52px 24px 86px; overflow: hidden; }
 .hero-band-inner { max-width: 1140px; margin: 0 auto; position: relative; }
 .hero-art { position: absolute; right: -10px; top: -14px; width: 400px; pointer-events: none; opacity: .95; }
 .hero-art .arc { stroke-dasharray: 3 9; stroke-linecap: round; animation: arcFlow 14s linear infinite; }
@@ -144,10 +158,12 @@ main#app { min-height: 72vh; }
 }
 
 .search-widget {
-  background: #fff; border-radius: 14px; padding: 8px;
+  background: #fff; border-radius: 16px; padding: 8px;
   display: flex; align-items: stretch; gap: 0;
-  box-shadow: 0 12px 34px rgba(0,0,0,.28);
+  box-shadow: 0 16px 40px rgba(0,0,0,.28);
+  transition: box-shadow .2s;
 }
+.search-widget:focus-within { box-shadow: 0 0 0 3px rgba(7,112,227,.4), 0 16px 40px rgba(0,0,0,.3); }
 .sw-field { flex: 1; min-width: 0; padding: 9px 16px; display: flex; flex-direction: column; gap: 3px; }
 .sw-field label {
   font-size: 10.5px; font-weight: 700; color: var(--ink-faint);
@@ -170,7 +186,7 @@ main#app { min-height: 72vh; }
 .hero-points span { color: rgba(255,255,255,.78); font-size: 13px; font-weight: 500; letter-spacing: 0.005em; }
 
 /* ---------- Network status strip ---------- */
-.network-strip { max-width: 1140px; margin: 0 auto; padding: 34px 24px 0; }
+.network-strip { max-width: 1140px; margin: -36px auto 0; padding: 0 24px; position: relative; z-index: 2; }
 .network-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .net-card {
   background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
@@ -213,7 +229,7 @@ main#app { min-height: 72vh; }
   box-shadow: var(--shadow); cursor: pointer; border: 1.5px solid transparent;
   transition: border-color .15s, transform .15s;
 }
-.deal-card:hover { border-color: var(--blue); transform: translateY(-2px); }
+.deal-card:hover { border-color: var(--blue); transform: translateY(-2px); box-shadow: var(--shadow-lift); }
 .deal-route { font-weight: 700; font-size: 15px; letter-spacing: -0.015em; margin-bottom: 3px; }
 .deal-mode { font-size: 12.5px; font-weight: 500; color: var(--ink-soft); margin-bottom: 14px; }
 .deal-bottom { display: flex; align-items: baseline; justify-content: space-between; }
@@ -264,6 +280,7 @@ main#app { min-height: 72vh; }
   border-right: 1px solid var(--line);
 }
 .sort-tab:last-child { border-right: none; }
+.sort-tab:hover { background: #f7f9fc; }
 .sort-tab .st-label { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
 .sort-tab .st-value { font-size: 12.5px; color: var(--ink-soft); font-weight: 500; }
 .sort-tab.active { border-bottom-color: var(--blue); }
@@ -273,9 +290,10 @@ main#app { min-height: 72vh; }
 .result-row {
   background: #fff; border-radius: var(--radius); box-shadow: var(--shadow);
   display: flex; margin-bottom: 12px; overflow: hidden; cursor: pointer;
-  border: 1.5px solid transparent; transition: border-color .15s;
+  border: 1.5px solid transparent;
+  transition: border-color .15s, box-shadow .15s, transform .15s;
 }
-.result-row:hover { border-color: var(--blue); }
+.result-row:hover { border-color: var(--blue); box-shadow: var(--shadow-lift); transform: translateY(-1px); }
 
 .leg-main { flex: 1; padding: 18px 20px 16px; min-width: 0; }
 .leg-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
@@ -376,6 +394,21 @@ main#app { min-height: 72vh; }
 }
 .btn-primary { background: var(--blue); color: #fff; }
 .btn-primary:hover { background: var(--blue-dark); }
+.btn:active, .pc-btn:active, .sw-btn:active, .auth-btn:active { transform: scale(.98); }
+
+/* ---------- How it works ---------- */
+.how-strip { max-width: 1140px; margin: 0 auto; padding: 0 24px 70px; }
+.how-strip h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 18px; }
+.how-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.how-card { background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; }
+.how-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #e8f1fe; color: var(--blue); font-weight: 800; font-size: 15px;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
+}
+.how-card h3 { margin: 0 0 6px; font-size: 15.5px; font-weight: 700; letter-spacing: -0.015em; }
+.how-card p { margin: 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
+@media (max-width: 720px) { .how-cards { grid-template-columns: 1fr; } }
 
 /* ---------- Confirm ---------- */
 .confirm-box {
