@@ -130,6 +130,10 @@ const translations = {
     'footer.tagline': 'The freight capacity marketplace — China → UK & Australia.',
     'footer.contact': 'Contact',
 
+    'story.title': 'Australia → UK is live',
+    'story.body': 'Real space on real departures from Sydney and Melbourne — book it today.',
+    'story.cta': 'See departures',
+
     'how.title': 'How it works',
     'how.1.t': 'Search a lane',
     'how.1.b': 'Pick origin, destination and mode — see remaining space and rates for every departure instantly.',
@@ -301,6 +305,10 @@ const translations = {
 
     'footer.tagline': '货运舱位交易平台——中国 → 英国和澳大利亚。',
     'footer.contact': '联系我们',
+
+    'story.title': '澳大利亚 → 英国已开通',
+    'story.body': '悉尼和墨尔本的真实班期、真实舱位——即刻预订。',
+    'story.cta': '查看班期',
 
     'how.title': '如何使用',
     'how.1.t': '搜索航线',
