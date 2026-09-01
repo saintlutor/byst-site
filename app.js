@@ -587,19 +587,11 @@ function renderDeals() {
   const deals = auDeals.concat(cnDeals).slice(0, 4);
   el.innerHTML = deals.map(l => `
     <div class="deal-card" data-id="${l.id}">
-      <div class="deal-band deal-band-${cityCountry[l.dest]}">
-        ${flagImg(l.origin, 'flag-lg')}
-        <span class="deal-band-arrow">→</span>
-        ${flagImg(l.dest, 'flag-lg')}
-        <span class="deal-band-icon">${l.type === 'sea' ? '🚢' : '✈️'}</span>
-      </div>
-      <div class="deal-body">
-        <div class="deal-route">${city(l.origin)} → ${city(l.dest)}</div>
-        <div class="deal-mode">${t('mode.' + l.type)}${l.standby ? ` · ★ ${t('standby')}` : ''}${isComingSoon(l) ? ` <span class="soon-badge">${t('soon.badge')}</span>` : ''}</div>
-        <div class="deal-bottom">
-          <span class="deal-price">${priceLabel(l)}<small>${u(l.priceUnit)}</small></span>
-          <span class="deal-date">${shortDate(l.date)}</span>
-        </div>
+      <div class="deal-route">${flagImg(l.origin)} ${city(l.origin)} → ${flagImg(l.dest)} ${city(l.dest)}</div>
+      <div class="deal-mode">${l.type === 'sea' ? '🚢' : '✈️'} ${t('mode.' + l.type)}${l.standby ? ` · ★ ${t('standby')}` : ''}${isComingSoon(l) ? ` <span class="soon-badge">${t('soon.badge')}</span>` : ''}</div>
+      <div class="deal-bottom">
+        <span class="deal-price">${priceLabel(l)}<small>${u(l.priceUnit)}</small></span>
+        <span class="deal-date">${shortDate(l.date)}</span>
       </div>
     </div>`).join('');
   el.querySelectorAll('.deal-card').forEach(card => {

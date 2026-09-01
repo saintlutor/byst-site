@@ -124,13 +124,7 @@ main#app { min-height: 72vh; }
 .hidden { display: none !important; }
 
 /* ---------- Hero / search band ---------- */
-.hero-band {
-  background:
-    radial-gradient(ellipse 60% 90% at 82% 10%, rgba(7,112,227,.28), transparent 60%),
-    radial-gradient(ellipse 40% 60% at 10% 100%, rgba(7,112,227,.14), transparent 60%),
-    var(--navy);
-  padding: 52px 24px 58px; overflow: hidden;
-}
+.hero-band { background: var(--navy); padding: 52px 24px 58px; overflow: hidden; }
 .hero-band-inner { max-width: 1140px; margin: 0 auto; position: relative; }
 .hero-art { position: absolute; right: -10px; top: -14px; width: 400px; pointer-events: none; opacity: .95; }
 .hero-art .arc { stroke-dasharray: 3 9; stroke-linecap: round; animation: arcFlow 14s linear infinite; }
@@ -215,17 +209,11 @@ main#app { min-height: 72vh; }
 .deals-strip h2 { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 18px; display: flex; align-items: center; gap: 10px; }
 .deal-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .deal-card {
-  background: #fff; border-radius: var(--radius); padding: 0; overflow: hidden;
+  background: #fff; border-radius: var(--radius); padding: 18px;
   box-shadow: var(--shadow); cursor: pointer; border: 1.5px solid transparent;
   transition: border-color .15s, transform .15s;
 }
 .deal-card:hover { border-color: var(--blue); transform: translateY(-2px); }
-.deal-band { display: flex; align-items: center; gap: 8px; padding: 11px 16px; }
-.deal-band-gb { background: linear-gradient(120deg, #0b3057, #0770e3); }
-.deal-band-au { background: linear-gradient(120deg, #065f56, #00a698); }
-.deal-band-arrow { color: rgba(255,255,255,.85); font-weight: 700; font-size: 13px; }
-.deal-band-icon { margin-left: auto; font-size: 16px; }
-.deal-body { padding: 13px 16px 16px; }
 .deal-route { font-weight: 700; font-size: 15px; letter-spacing: -0.015em; margin-bottom: 3px; }
 .deal-mode { font-size: 12.5px; font-weight: 500; color: var(--ink-soft); margin-bottom: 14px; }
 .deal-bottom { display: flex; align-items: baseline; justify-content: space-between; }
